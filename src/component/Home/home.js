@@ -1,10 +1,12 @@
 import React from 'react';
-import Footer from '../footer/footer'  // 대문자로 변경
+import Footer from '../footer/footer';
+import Main from '../main/main';
+
 
 function Home() {  
   return (
-    <div>
-      {/* Home 컴포넌트 내용 */}
+    <div className=''>
+      <Main />
       <Footer /> 
     </div>
   );
