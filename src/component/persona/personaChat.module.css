@@ -1,31 +1,30 @@
-.PerContainer{
-    width: 100vw;
-    height: 80vh;
+.chatFullScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
     background-color: #FBF0D4;
-    margin-top: 5vh;
-    background-image: url("./persona.png");
-    background-repeat: no-repeat;
-    background-size: 80vw;
-    background-position: -10vw 20vw; /* 왼쪽으로 20픽셀 이동 */
+  }
   
-}
-.inputPersonmain {
-    width: 14%;
-    height: 10%;
-    border-radius: 100%;
-    background-color: #E8E8E8; /* 배경색을 추가하여 텍스트가 보이게 함 */
-    position: absolute; /* 위치를 절대적으로 설정 */
-    bottom: -27%; /* 컨테이너의 아래쪽으로 위치 조정 */
-    left: 76%; /* 컨테이너의 왼쪽에서 위치 조정 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    line-height: 20vh; 
-    background-image: url(Group.png);
-    background-repeat: no-repeat;
-    background-size: 93%;
-    background-position: 50% center;
-}
-
-.headerTitle {
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #FBF0D4;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .backButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .headerTitle {
     flex-grow: 1;
     text-align: center;
     font-size: 18px;

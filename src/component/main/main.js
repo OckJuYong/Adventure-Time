@@ -19,8 +19,7 @@ function Main() {
 
   return (
     <div className="chat-interface">
-      <h2>휴식이 필요한 오늘 같은 날</h2>
-      <div className="status">여행 준비 중</div>
+
       <div className="message-list">
         {messages.map((message, index) => (
           <div key={index} className={`message ${message.sender}`}>
