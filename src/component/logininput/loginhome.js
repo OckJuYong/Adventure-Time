@@ -1,6 +1,7 @@
-import react from "react";
+import React from "react";
 import Loginhomestyle from "./loginhome.module.css"
 import { useNavigate } from "react-router-dom";
+
 function Logininputpage(){
     const navigate=useNavigate()
     const handleidinputclick=()=>{
@@ -23,3 +24,5 @@ function Logininputpage(){
     
 }
 export default Logininputpage 
+
+
