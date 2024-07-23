@@ -8,7 +8,9 @@ import CrePage1 from './component/cretravel/createpage1';
 import Credatepage from './component/credate/credatepage';
 import Creproducepage from './component/creproduce/creproducepage';
 import Proposepage from './component/propose/proposepage';
-import { Outlet } from "react-router-dom";
+import Logininputpage from './component/logininput/loginhome';
+import Mkidpage from './component/mkid/mkidpage';
+
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/credatepage" element={<Credatepage />} /> 
         <Route path="/creproducepage" element={<Creproducepage />} /> 
         <Route path="/proposepage" element={<Proposepage />} /> 
+        <Route path="/logininputpage" element={<Logininputpage />} /> 
+        <Route path="/mkidpage" element={<Mkidpage />} /> 
         </Routes>
     </BrowserRouter>
   );

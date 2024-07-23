@@ -1,0 +1,56 @@
+.loginhomemainbox{
+    position: absolute;
+    margin-top: 30%;
+    margin-left: 7%;
+}
+.loginmaintext{
+    color: #3B6FF9;
+    font-size: 7vw;
+    font-weight: 900;
+}
+.loginextext1.loginextext2.loginextext3{
+    color: #000000;
+}
+.loginextext2{
+    margin-top: -2%;
+}
+.loginextext3{
+    margin-top: -2%;
+}
+
+   
+.logininput{
+    margin-left: 15%;
+    position: absolute;
+    margin-top: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    font-weight: 600;
+    font-size: 4vw;
+    width: 45vh;
+    height: 12vw;
+    background-color: #6285E1;
+    border-radius: 20vw;
+
+}
+.mkidinput{
+    margin-left: 15%;
+    position: absolute;
+    margin-top: 94%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#6285E1;
+    font-weight: 600;
+    font-size: 4vw;
+    width: 45vh;
+    height: 12vw;
+    background-color: white;
+    border-radius: 20vw;
+    border: 1px solid #6285E1
+
+}
+
+
