@@ -1,0 +1,29 @@
+.main_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pre_container {
+    margin-top: 15%;
+    margin-right: 30%;
+}
+
+.user_pre {
+    font-size: 45px;
+}
+
+.personaImg {
+    width: 35vw;
+}
+
+.next_btn {
+    font-size: 30px;
+    width: 80%;
+    height: 7vh;
+    border-radius: 50px;
+    color: white;
+    background-color: #6285E1;
+    margin-top: 65%;
+}
