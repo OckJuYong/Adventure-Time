@@ -10,7 +10,8 @@ import Creproducepage from './component/creproduce/creproducepage';
 import Proposepage from './component/propose/proposepage';
 import Logininputpage from './component/logininput/loginhome';
 import Mkidpage from './component/mkid/mkidpage';
-
+import Login from './component/login/login';
+import Logincom from './component/logincom/logincom';
 
 function App() {
   return (
@@ -24,7 +25,9 @@ function App() {
         <Route path="/creproducepage" element={<Creproducepage />} /> 
         <Route path="/proposepage" element={<Proposepage />} /> 
         <Route path="/logininputpage" element={<Logininputpage />} /> 
+        <Route path="/loginpage" element={<Login />} /> 
         <Route path="/mkidpage" element={<Mkidpage />} /> 
+        <Route path="/logincom" element={<Logincom />} /> 
         </Routes>
     </BrowserRouter>
   );
