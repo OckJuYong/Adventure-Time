@@ -1,0 +1,123 @@
+.permaincontainer{
+    display: flex;
+    flex-direction: row; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 80px; 
+    position: absolute;
+    width: 84vw;
+    height: 50vh;
+    background-color: #F5F5F5;
+    border-radius: 10%;
+    margin-left: 45px;
+    margin-top: 70px;
+}
+.perusercontainer{
+    margin-top: -18vh;
+    background-color: #D9D9D9;
+    width: 32vw;
+    height: 25vh;
+    border-radius: 4vw;
+}
+.perimg1 {
+    font-size: 20px;
+    text-align: center;
+}
+
+.perimg2 {
+    font-size: 20px;
+    text-align: center;
+}
+.userinfotext{
+    font-size: 2.4vw;
+   position: absolute;
+    font-weight: 600;
+    margin-left: -37vw;
+    margin-top:5.3vh;
+
+}
+.userinfocontainer1{
+    position: absolute;
+
+}
+.userinfocontainer2{
+    position: absolute;
+
+}
+.userinfobox{
+
+    position: absolute;
+    width: 20vw;
+    height: 3vh;
+    background-color: #D5D5D5;
+    border-radius: 10vw;
+    margin-top: 5vh;
+    margin-left: -29vw;
+    
+}
+.infobox1{
+    position: absolute;
+    margin-top: 4vh;
+}
+.infobox2{
+    position: absolute;
+    margin-top: 8vh;
+}
+.infobox3{
+    position: absolute;
+    margin-top: 4vh;
+
+}
+.userinfocontainer2{
+    position: absolute;
+    margin-left: 75vw;
+}
+.userinfotext1{
+    font-size: 2.4vw;
+   position: absolute;
+    font-weight: 600;
+    margin-left: -6vw;
+    margin-top:5.3vh;
+}
+.userinfotext2{
+    font-size: 2.4vw;
+   position: absolute;
+    font-weight: 600;
+    margin-left: -6vw;
+    margin-top:5.3vh;
+}
+.userinfotext3{
+    font-size: 2.4vw;
+   position: absolute;
+    font-weight: 600;
+    margin-left: -6vw;
+    margin-top:5.3vh;
+}
+.userinfotext4{
+    font-size: 2.4vw;
+   position: absolute;
+    font-weight: 600;
+    margin-left: -6vw;
+    margin-top:5.3vh;
+}
+.userstatedistrict{
+    width:13vw;
+    height: 9vh;
+    position: absolute;
+    background-color: #6285E1;
+    border-radius: 100%;
+    margin-top: 24vh;
+
+}
+.compat{
+    color: white;
+    margin-left: 4.2vw;
+    margin-top: 2vh;
+}
+.percent{
+    font-size: 4.6vw;
+    font-weight: 700;
+    color: white;
+    margin-left: 3.6vw;
+    margin-top: -2vh;
+}

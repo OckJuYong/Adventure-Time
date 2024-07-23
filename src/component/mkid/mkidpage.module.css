@@ -1,0 +1,14 @@
+.mainbox{
+    position: absolute;
+}
+.mkidmaintext{
+    font-size: 7vw;
+    font-weight: 700;
+}
+.mkinput  {
+    border: 1px solid #D8DADC;
+    width:55vw;
+    height:7.2vh;
+    border-radius: 2.3vw;
+
+}
