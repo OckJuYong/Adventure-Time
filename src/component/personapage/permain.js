@@ -12,36 +12,40 @@ function Permain(){
         
 
         <div className={permainstyle.userinfocontainer1}>
+            <div className={permainstyle.infobox1}>
             <p className={permainstyle.userinfotext}>모험</p>
             <div className={permainstyle.userinfobox}></div>
-             <div className={permainstyle.infobox1}>
+            </div>
+             <div className={permainstyle.infobox2}>
             <p className={permainstyle.userinfotext}>경험</p>
             <div className={permainstyle.userinfobox}></div>
             </div>
-            <div className={permainstyle.infobox2}>
+            <div className={permainstyle.infobox3}>
             <p className={permainstyle.userinfotext}>즉흥</p>
             <div className={permainstyle.userinfobox}></div>
             <div className={permainstyle.infobox1}>
             </div>
-            <div className={permainstyle.infobox3}>
+            <div className={permainstyle.infobox4}>
             <p className={permainstyle.userinfotext}>사교</p>
             <div className={permainstyle.userinfobox}></div>
             </div>
             </div>
         </div>
         <div className={permainstyle.userinfocontainer2}>
+        <div className={permainstyle.infobox1}>
             <p className={permainstyle.userinfotext1}>모험</p>
             <div className={permainstyle.userinfobox}></div>
-             <div className={permainstyle.infobox1}>
+            </div>
+             <div className={permainstyle.infobox2}>
             <p className={permainstyle.userinfotext2}>경험</p>
             <div className={permainstyle.userinfobox}></div>
             </div>
-            <div className={permainstyle.infobox2}>
+            <div className={permainstyle.infobox3}>
             <p className={permainstyle.userinfotext3}>즉흥</p>
             <div className={permainstyle.userinfobox}></div>
             <div className={permainstyle.infobox1}>
             </div>
-            <div className={permainstyle.infobox3}>
+            <div className={permainstyle.infobox4}>
             <p className={permainstyle.userinfotext4}>사교</p>
             <div className={permainstyle.userinfobox}></div>
             </div>
