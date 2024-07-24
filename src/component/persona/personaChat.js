@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import personasChatsty from "./personaChat.module.css";
 import { useNavigate } from 'react-router-dom';
+import backBtn from '../logininput/back.png';
+
+import loading from './Loading.png';
 
 function PersonaChat() {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isWaitingForAIResponse, setIsWaitingForAIResponse] = useState(false);
 
   // 컴포넌트가 마운트될 때 로컬 스토리지에서 메시지를 불러옵니다.
   useEffect(() => {
@@ -38,9 +42,11 @@ function PersonaChat() {
       const newMessages = [...messages, { text: input, sender: 'user' }];
       setMessages(newMessages);
       setInput('');
+      setIsWaitingForAIResponse(true); // AI 응답 대기 상태 시작
       // AI 응답을 시뮬레이션합니다. 실제로는 여기에 AI API 호출 로직이 들어갑니다.
       setTimeout(() => {
         setMessages(prevMessages => [...prevMessages, { text: "AI의 응답입니다.", sender: 'ai' }]);
+        setIsWaitingForAIResponse(false); // AI 응답 완료
       }, 1000);
     }
   }
@@ -52,10 +58,7 @@ function PersonaChat() {
   return (
     <div className={personasChatsty.chatFullScreen}>
       <div className={personasChatsty.header}>
-        <button onClick={goBack} className={personasChatsty.backButton}>
-          &lt;
-        </button>
-        <div className={personasChatsty.headerTitle}>채팅</div>
+        <img onClick={goBack} src={backBtn} className={personasChatsty.back_btn} alt="Go Back" />
       </div>
       <div className={personasChatsty.chatWrapper}>
         {messages.map((message, index) => (
@@ -63,6 +66,11 @@ function PersonaChat() {
             {message.text}
           </div>
         ))}
+        {isWaitingForAIResponse && (
+          <div className={`${personasChatsty.message} ${personasChatsty.ai}`}>
+            <img src={loading}/>
+          </div>
+        )}
       </div>
       <form onSubmit={handleSend} className={personasChatsty.inputArea}>
         <input

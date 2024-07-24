@@ -1,21 +1,33 @@
-
-import React, { useState } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import headersty from './header.module.css';
-import Statusbar from "./status bar.png"
+import useGeoLocation from '../GPS/Gps'; // useGeoLocation 훅 가져오기
 
-function Footer() {  // 대문자로 변경
-    const [address, setAddress] = useState("대전");
+const geolocationOptions = {
+  enableHighAccuracy: true,
+  timeout: 1000 * 10,
+  maximumAge: 1000 * 3600 * 24,
+};
+
+function Footer() {
+  const [address, setAddress] = useState("");
+  const { location, address: geoAddress, error } = useGeoLocation(geolocationOptions);
+
+  useEffect(() => {
+    if (geoAddress) {
+      const locationName = geoAddress.city || geoAddress.town || geoAddress.village || geoAddress.county;
+      setAddress(locationName);
+    }
+  }, [geoAddress]);
+
   return (
     <div className={headersty.header_container}>
-     
-        <div className={headersty.healing}>휴식이 필요한 오늘 같은 날</div>
-        <div className={headersty.read_container}>
-            <div className={headersty.address}>현위치 : {address}</div>
-            <div className={headersty.read}>여행 준비 중</div>
-        </div>
+      <div className={headersty.healing}>휴식이 필요한 오늘 같은 날</div>
+      <div className={headersty.read_container}>
+        <div className={headersty.address}>현위치 : {address}</div>
+        <div className={headersty.read}>여행 준비 중</div>
+      </div>
     </div>
   );
 }
 
-export default Footer;  // 대문자로 변경
+export default Footer;
