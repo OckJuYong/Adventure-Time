@@ -15,27 +15,35 @@ import LoginUpdate from './component/logininput/personaUpdate';
 import TravelQuestions from './component/logininput/personaQpage';
 import InfoResult from './component/logininput/result';
 
+import Footer from './component/footer/footer';
 
 function App() {
   return (
     <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/persona" element={<Persona />} />
-          <Route path="/personamain" element={<Perhome />}></Route>
-          <Route path="/createpage1" element={<CrePage1 />} /> 
-          <Route path="/credatepage" element={<Credatepage />} /> 
-          <Route path="/creproducepage" element={<Creproducepage />} /> 
-          <Route path="/proposepage" element={<Proposepage />} /> 
-          <Route path="/logininputpage" element={<Logininputpage />} /> 
-          <Route path="/mkidpage" element={<Mkidpage />} /> 
-          
-          <Route path="/loginUpdate" element={<LoginUpdate />} /> 
-          <Route path="/TravelQuestions" element={<TravelQuestions />} /> 
-          <Route path="/InfoResult" element={<InfoResult />} /> 
-        </Routes>
+      <div className="App" >
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/persona" element={<Persona />} />
+            <Route path="/personamain" element={<Perhome />} />
+            <Route path="/createpage1" element={<CrePage1 />} /> 
+            <Route path="/credatepage" element={<Credatepage />} /> 
+            <Route path="/creproducepage" element={<Creproducepage />} /> 
+            <Route path="/proposepage" element={<Proposepage />} /> 
+            <Route path="/logininputpage" element={<Logininputpage />} /> 
+            <Route path="/mkidpage" element={<Mkidpage />} /> 
+            
+            <Route path="/loginUpdate" element={<LoginUpdate />} /> 
+            <Route path="/TravelQuestions" element={<TravelQuestions />} /> 
+            <Route path="/InfoResult" element={<InfoResult />} /> 
+          </Routes>
+        </div>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
+
+
 
 export default App;
