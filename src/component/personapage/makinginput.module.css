@@ -10,23 +10,26 @@
     z-index: 1000; 
     
 }
-.mktext{
+.mktext1{
+    
     color:white;
     font-weight: 600;
-    font-size: 4vw;
-    margin-left: 28%;
-    margin-top: 7%;
+    font-size: 5vw;
+    margin-left: 8vh;
+    margin-top: 1.7vh;
+    
 }
 @media (min-width: 721px) {
 
     .mkinputbox{
-        width: 30vw;
+        margin-bottom: 2vh;
+        width: 25vw;
         height: 12vh;
 
     }
-}
-.mktext{
-    font-size: 3.5vw;
-    margin-left: 20%;
-    margin-top: 3%;
+    .mktext1{
+        font-size: 3.2vw;
+        margin-left: 8vh;
+        margin-top: 2vh;
+    }
 }
