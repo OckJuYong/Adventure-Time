@@ -1,25 +1,28 @@
-import react from "react";
-import Loginhomestyle from "./loginhome.module.css"
+import React from "react";
 import { useNavigate } from "react-router-dom";
-function Logininputpage(){
-    const navigate=useNavigate()
-    const handleidinputclick=()=>{
-        navigate("/mkidpage")
-    }
-    return(
-        <div>
-        <div className={Loginhomestyle.loginhomemainbox}>
-            <p className={Loginhomestyle.loginmaintext}>함께 떠나요!</p>
-            <p className={Loginhomestyle.loginextext1}>평범한 일상.</p>
-            <p className={Loginhomestyle.loginextext2}>당신의 여행 페르소나를 생성하고</p>
-            <p className={Loginhomestyle.loginextext3}>여행 메이트를 찾아 함께 떠나봐요!</p>
-        </div>
-        <div  className={Loginhomestyle.inputbuttonbox}>
-            <p className={Loginhomestyle.logininput}>로그인</p>
-            <p className={Loginhomestyle.mkidinput}onClick={handleidinputclick}>계정생성</p>
-        </div>
+import styles from "./loginhome.module.css";
+
+function Logininputpage() {
+    const navigate = useNavigate();
+    
+    const handleidinputclick = () => {
+        navigate("/mkidpage");
+    };
+    
+    return (
+        <div className={styles.container}>
+            <div className={styles.loginhomemainbox}>
+                <p className={styles.loginmaintext}>함께 떠나요!</p>
+                <p className={styles.loginextext}>평범한 일상.</p>
+                <p className={styles.loginextext}>당신의 여행 페르소나를 생성하고</p>
+                <p className={styles.loginextext}>여행 메이트를 찾아 함께 떠나봐요!</p>
+            </div>
+            <div className={styles.inputbuttonbox}>
+                <button className={styles.logininput}>로그인</button>
+                <button className={styles.mkidinput} onClick={handleidinputclick}>계정생성</button>
+            </div>
         </div>
     );
-    
 }
-export default Logininputpage 
+
+export default Logininputpage;

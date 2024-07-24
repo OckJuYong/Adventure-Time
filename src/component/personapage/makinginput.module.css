@@ -17,3 +17,16 @@
     margin-left: 28%;
     margin-top: 7%;
 }
+@media (min-width: 721px) {
+
+    .mkinputbox{
+        width: 30vw;
+        height: 12vh;
+
+    }
+}
+.mktext{
+    font-size: 3.5vw;
+    margin-left: 20%;
+    margin-top: 3%;
+}
