@@ -26,7 +26,6 @@ import DiaryInput from './component/Diary/DiaryInput';
 import Potouploadpage from './component/potoupload/potoupload';
 import Potocom from './component/potocom/potocom';
 
-import Footer from './component/footer/footer';
 
 function App() {
   return (
