@@ -23,6 +23,9 @@ import GpsSub from './component/GPS/GpsSub';
 import Dairy from './component/Diary/Diary';
 import DiaryInput from './component/Diary/DiaryInput';
 
+import Potouploadpage from './component/potoupload/potoupload';
+import Potocom from './component/potocom/potocom';
+
 import Footer from './component/footer/footer';
 
 function App() {
@@ -51,6 +54,9 @@ function App() {
             <Route path="/GpsSub" element={<GpsSub />} /> 
             <Route path="/Diary" element={<Dairy />} /> 
             <Route path="/DiaryInput" element={<DiaryInput />} /> 
+
+            <Route path="/potouploadpage" element={<Potouploadpage/>} />
+            <Route path="/potocompage" element={<Potocom/>} />
 
           </Routes>
         </div>

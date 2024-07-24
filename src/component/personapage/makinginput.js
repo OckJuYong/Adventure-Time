@@ -9,7 +9,7 @@ function Mkinput(){
 
     return(
         <div className={mkinputstyle.mkinputbox} onClick={handlecreatepageClick}>
-            <p className={mkinputstyle.mktext}>여행 만들기</p>
+            <p className={mkinputstyle.mktext1}>여행 만들기</p>
         </div>
     );
 
