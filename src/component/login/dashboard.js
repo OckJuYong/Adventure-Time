@@ -11,7 +11,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/test', {
+        const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading', {
           withCredentials: true // 쿠키를 포함하기 위해 필요합니다
         });
         setUserInfo(response.data);
