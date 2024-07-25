@@ -14,6 +14,8 @@ import Login from './component/login/login';
 import Logincom from './component/logincom/logincom';
 import Potouploadpage from './component/potoupload/potoupload';
 import Potocom from './component/potocom/potocom';
+import Firstmatepate from './component/first_mate/firtsmate';
+import Nextmate from './component/next_mate/mextmate';
 function App() {
   return (
     <BrowserRouter>
@@ -29,11 +31,12 @@ function App() {
         <Route path="/loginpage" element={<Login />} /> 
         <Route path="/mkidpage" element={<Mkidpage />} /> 
         <Route path="/logincom" element={<Logincom />} /> 
-
-
         <Route path="/potouploadpage" element={<Potouploadpage/>} />
         <Route path="/potocompage" element={<Potocom/>} />
-        
+
+        <Route path="/frmatepage" element={<Firstmatepate/>} />
+        <Route path="/nextpage" element={<Nextmate></Nextmate>} />
+
         </Routes>
     </BrowserRouter>
   );
