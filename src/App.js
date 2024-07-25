@@ -13,6 +13,8 @@ import Mkidpage from './component/mkid/mkidpage';
 import Login from './component/login/login';
 import Logincom from './component/logincom/logincom';
 
+import Dashboard from './component/login/dashboard';
+
 import LoginUpdate from './component/logininput/personaUpdate';
 import TravelQuestions from './component/logininput/personaQpage';
 import InfoResult from './component/logininput/result';
@@ -55,6 +57,9 @@ function App() {
 
             <Route path="/potouploadpage" element={<Potouploadpage/>} />
             <Route path="/potocompage" element={<Potocom/>} />
+
+            <Route path="/dashboard" element={<Dashboard/>} />
+
 
           </Routes>
         </div>
