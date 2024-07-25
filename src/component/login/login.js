@@ -36,6 +36,8 @@ function Login() {
       const loginResponse = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/login', {
         email: email,
         password: password
+      }, {
+        withCredentials: true
       });
   
       console.log("로그인 응답:", loginResponse.data);
