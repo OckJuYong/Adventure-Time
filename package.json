@@ -44,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+    "proxy": "https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app"
+  
+
 }
