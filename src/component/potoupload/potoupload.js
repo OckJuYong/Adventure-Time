@@ -17,7 +17,7 @@ function Potouploadpage() {
   return (
     <div className={Potopagestyle.container}>
       <h1 className={Potopagestyle.title1}>좋아하는 여행 사진을</h1>
-      <h1 className={Potopagestyle.title2}>골라주세요!</h1>
+      <h1 className={Potopagestyle.title2}>선택해 주세요!</h1>
       <p className={Potopagestyle.subtitle}>선택한 사진을 분석해 재진님의 여행 페르소나를 생성합니다.</p>
       
       <div className={Potopagestyle.imageGrid} onClick={handleImageBoxClick}>

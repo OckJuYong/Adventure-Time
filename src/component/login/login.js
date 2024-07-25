@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Loginstyle from "./login.module.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"; // axios 추가
 
 function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); // 비밀번호 상태 추가
   const [isValidEmail, setIsValidEmail] = useState(false);
 
   const validateEmail = (email) => {
@@ -19,55 +21,92 @@ function Login() {
     setIsValidEmail(validateEmail(newEmail));
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    if (!isValidEmail || !password) {
+      alert("유효한 이메일과 비밀번호를 입력해주세요.");
+      return;
+    }
+  
+    try {
+      // 로그인 요청
+      const loginResponse = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/login', {
+        email: email,
+        password: password
+      });
+  
+      console.log("로그인 응답:", loginResponse.data);
+      alert("로그인 성공!");
+  
+      // 로그인 성공 후 사용자 정보 GET 요청
+      try {
+        const userInfoResponse = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading');
+        console.log("사용자 정보:", userInfoResponse.data);
+      } catch (infoError) {
+        console.error("사용자 정보 가져오기 실패:", infoError);
+      }
+  
+      // 로그인 성공 후 이동할 페이지로 네비게이트
+      navigate('/dashboard'); // 예시 경로
+    } catch (error) {
+      console.error("로그인 오류:", error);
+      alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
+    }
+  };
+
   return (
     <div className={Loginstyle.container}>
       <h1 className={Loginstyle.title}>로그인</h1>
       
-      <div className={Loginstyle.inputGroup}>
-        <label className={Loginstyle.label}>이메일 주소</label>
-        <div className={Loginstyle.inputWrapper}>
-          <input 
-            type="email" 
-            placeholder="email@gmail.com" 
-            className={Loginstyle.input}
-            value={email}
-            onChange={handleEmailChange}
-          />
-          <div className={Loginstyle.checkmark}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="11" fill={isValidEmail ? "#6285E1" : "#CCCCCC"} />
-              <path d="M7 13L10 16L17 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+      <form onSubmit={handleLogin}>
+        <div className={Loginstyle.inputGroup}>
+          <label className={Loginstyle.label}>이메일 주소</label>
+          <div className={Loginstyle.inputWrapper}>
+            <input 
+              type="email" 
+              placeholder="email@gmail.com" 
+              className={Loginstyle.input}
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
+            <div className={Loginstyle.checkmark}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="11" fill={isValidEmail ? "#6285E1" : "#CCCCCC"} />
+                <path d="M7 13L10 16L17 9" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
           </div>
         </div>
-      </div>
-      
-      <div className={Loginstyle.inputGroup}>
-        <label className={Loginstyle.label}>비밀번호</label>
-        <div className={Loginstyle.inputWrapper}>
-          <input 
-            type={showPassword ? "text" : "password"} 
-            placeholder="••••••••" 
-            className={Loginstyle.input} 
-          />
-          <button 
-            className={Loginstyle.eyeIcon}
-            onClick={() => setShowPassword(!showPassword)}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 5C5.63636 5 2 12 2 12C2 12 5.63636 19 12 19C18.3636 19 22 12 22 12C22 12 18.3636 5 12 5Z" stroke="#AAAAAA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#AAAAAA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              {showPassword && (
-                <path d="M3 21L21 3" stroke="#AAAAAA" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              )}
-            </svg>
-          </button>
+        
+        <div className={Loginstyle.inputGroup}>
+          <label className={Loginstyle.label}>비밀번호</label>
+          <div className={Loginstyle.inputWrapper}>
+            <input 
+              type={showPassword ? "text" : "password"} 
+              placeholder="••••••••" 
+              className={Loginstyle.input}
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+            <button 
+              type="button"
+              className={Loginstyle.eyeIcon}
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {/* SVG 코드는 그대로 유지 */}
+            </button>
+          </div>
         </div>
-      </div>
-      
-      <a href="#" className={Loginstyle.forgotPassword}>비밀번호를 잊어버렸나요?</a>
-      
-      <button className={Loginstyle.loginButton}>로그인</button>
+        
+        <a href="#" className={Loginstyle.forgotPassword}>비밀번호를 잊어버렸나요?</a>
+        
+        <button type="submit" className={Loginstyle.loginButton}>로그인</button>
+      </form>
       
       <p className={Loginstyle.signupLink}>
         아직 계정이 없으신가요? <Link to="/mkidpage">계정생성</Link>

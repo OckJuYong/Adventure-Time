@@ -14,6 +14,7 @@ import Login from './component/login/login';
 import Logincom from './component/logincom/logincom';
 import Potouploadpage from './component/potoupload/potoupload';
 import Potocom from './component/potocom/potocom';
+
 function App() {
   return (
     <BrowserRouter>
@@ -29,10 +30,10 @@ function App() {
         <Route path="/loginpage" element={<Login />} /> 
         <Route path="/mkidpage" element={<Mkidpage />} /> 
         <Route path="/logincom" element={<Logincom />} /> 
-
-
         <Route path="/potouploadpage" element={<Potouploadpage/>} />
         <Route path="/potocompage" element={<Potocom/>} />
+        
+
         
         </Routes>
     </BrowserRouter>
