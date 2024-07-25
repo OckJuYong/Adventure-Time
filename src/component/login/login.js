@@ -45,7 +45,7 @@ function Login() {
   
       // 로그인 성공 후 사용자 정보 GET 요청
       try {
-        const userInfoResponse = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading');
+        const userInfoResponse = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/test');
         console.log("사용자 정보:", userInfoResponse.data);
       } catch (infoError) {
         console.error("사용자 정보 가져오기 실패:", infoError);
