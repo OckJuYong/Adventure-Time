@@ -16,7 +16,7 @@ function Footer() {
 
   useEffect(() => {
     // 현재 경로에 따라 activeIcon 설정
-    if (location.pathname === '/') {
+    if (location.pathname === '/home') {
       setActiveIcon(1);
     } else if (location.pathname === '/personamain') {
       setActiveIcon(3);
@@ -40,7 +40,7 @@ function Footer() {
         src={activeIcon === 1 ? icon1Active : icon1} 
         alt="Icon 1" 
         className={footerStyles.icon} 
-        onClick={() => handleIconClick(1, "/")}
+        onClick={() => handleIconClick(1, "/home")}
       />
       <img 
         src={activeIcon === 2 ? icon2Active : icon2} 

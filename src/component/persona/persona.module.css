@@ -1,81 +1,61 @@
-.PerContainer{
-    width: 100vw;
-    height: 80vh;
-    background-color: #FBF0D4;
-    margin-top: 5vh;
-    background-image: url("./persona.png");
-    background-repeat: no-repeat;
-    background-size: 80vw;
-    background-position: -10vw 20vw; /* 왼쪽으로 20픽셀 이동 */
-  
-}
-.inputPersonmain {
-    width: 14%;
-    height: 10%;
-    border-radius: 100%;
-    background-color: #E8E8E8; /* 배경색을 추가하여 텍스트가 보이게 함 */
-    position: absolute; /* 위치를 절대적으로 설정 */
-    bottom: -27%; /* 컨테이너의 아래쪽으로 위치 조정 */
-    left: 76%; /* 컨테이너의 왼쪽에서 위치 조정 */
-    text-align: center; /* 텍스트 가운데 정렬 */
-    line-height: 20vh; 
-    background-image: url(Group.png);
-    background-repeat: no-repeat;
-    background-size: 93%;
-    background-position: 50% center;
+.PerContainer {
+  width: 100vw;
+  height: 45vh;
+  background-color: #FBF0D4;
+  margin-top: 1vh;
+  background-image: url("./persona.png");
+  background-repeat: no-repeat;
+  background-size: 65vw;
+  background-position: -5vw 0vw;
+  position: relative;
+  overflow: hidden;
 }
 
-.headerTitle {
-    flex-grow: 1;
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  
-  .chatWrapper {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 20px;
-  }
-  
-  .message {
-    max-width: 70%;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 20px;
-    font-size: 16px;
-  }
-  
-  .user {
-    align-self: flex-end;
-    background-color: #FFD700;
-    margin-left: auto;
-  }
-  
-  .ai {
-    align-self: flex-start;
-    background-color: #E0E0E0;
-  }
-  
-  .inputArea {
-    display: flex;
-    padding: 10px;
-    background-color: white;
-  }
-  
-  .inputField {
-    flex-grow: 1;
-    padding: 10px;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-  }
-  
-  .sendButton {
-    background: none;
-    border: none;
-    font-size: 16px;
-    color: blue;
-    cursor: pointer;
-    margin-left: 10px;
-  }
+.inputPersonmain {
+  width: 14vw;
+  height: 9vh;
+  border-radius: 100%;
+  background-color: #E8E8E8;
+  position: absolute;
+  bottom: 3%;
+  right: 4vw;
+  background-image: url(Group.png);
+  background-repeat: no-repeat;
+  background-size: 93%;
+  background-position: 50% center;
+  cursor: pointer;
+}
+
+.chatWrapper {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: 6vh; /* 약간 위로 올림 */
+  height: 100%; /* 높이 증가 */
+  overflow: hidden;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.message {
+  max-width: 80%; /* 최대 너비 증가 */
+  margin-bottom: 15px; /* 간격 증가 */
+  padding: 17px 25px; /* 패딩 증가 */
+  border-radius: 50px;
+  font-size: 3vw; /* 폰트 크기 증가 */
+  word-wrap: break-word;
+  line-height: 1; /* 줄 간격 추가 */
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #FFD700;
+}
+
+.ai {
+  align-self: flex-start;
+  background-color: #FFFFFF;
+  border: 1px solid #E0E0E0;
+}

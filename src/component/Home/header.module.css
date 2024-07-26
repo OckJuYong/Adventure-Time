@@ -1,39 +1,42 @@
 .header_container {
-    
     display: flex;
     flex-direction: row;
-    height: 13vh;
+    height: 10vh;
     justify-content: space-between;
     padding: 20px;
     margin-top: 10%;
-
-    
 }
 
 .healing {
     font-weight:900;
     width: 40%;
-    font-size: 40px;
+    font-size: 5vw;
     font-family: 900;
 }
 
 .read_container {
     display: flex;
     flex-direction: column;
+    margin-top: -5vh;
 }
 
 .address {
     display: flex;
     justify-content: end;
     padding: 10px;
+    font-size: 3vw;
 }
 
 .read {
     border: 1px solid #D9D9D9;
-    background-color: #D9D9D9;
+    color: #4674F0;
+    background-color: #D3E7FF;
     font-weight: 900;
-    font-size: 20px;
+    font-size: 3.5vw;
+    width: 20vw;
     border-radius: 20px;
-    height: 25%;
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    margin-left: 3vw;
 }

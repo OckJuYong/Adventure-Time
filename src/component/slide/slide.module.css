@@ -14,10 +14,10 @@
   
   .slideritem {
     border-radius:4vw;
-    margin-left: 10%;
+    margin-left: 5%;
     flex: 0 0 100%; 
     width: 20%;
-    height: 30vh;
+    height: 25vh;
     display: flex;
     align-items: center;
     justify-content: center;

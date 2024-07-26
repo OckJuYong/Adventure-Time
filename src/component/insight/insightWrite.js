@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import personasChatsty from "./personaChat.module.css";
+import styles from "./insightWrite.module.css";
 import { useNavigate } from 'react-router-dom';
 import backBtn from '../logininput/back.png';
-import loading from './Loading.png';
+import loading from '../persona/Loading.png';
 
-function PersonaChat() {
+function InsightWrite() {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
@@ -36,7 +36,7 @@ function PersonaChat() {
   };
 
   const goBack = () => {
-    navigate('/home');
+    navigate('/insight');
   }
 
   const handleSend = (e) => {
@@ -53,42 +53,61 @@ function PersonaChat() {
     }
   }
 
+  const handleCreateDiary = () => {
+    navigate('/createDiary');
+  }
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
   return (
-    <div className={personasChatsty.chatFullScreen}>
-      <div className={personasChatsty.header}>
-        <img onClick={goBack} src={backBtn} className={personasChatsty.back_btn} alt="Go Back" />
+    <div className={styles.chatFullScreen}>
+      <div className={styles.header}>
+        <img onClick={goBack} src={backBtn} className={styles.back_btn} alt="Go Back" />
       </div>
-      <div className={personasChatsty.chatWrapper}>
-        <div className={personasChatsty.chatContent}>
+      <div className={styles.chatGradient}></div>
+      <div className={styles.chatWrapper}>
+        <div className={styles.chatContent}>
           {messages.map((message, index) => (
-            <div key={index} className={`${personasChatsty.message} ${personasChatsty[message.sender]}`}>
+            <div key={index} className={`${styles.message} ${styles[message.sender]}`}>
               {message.text}
             </div>
           ))}
+        {messages.length >= 20 && (
+            <span onClick={handleCreateDiary} className={styles.ChatEndButton}>
+                대화종료
+            </span>
+        )}
+        {messages.length >= 20 && (
+            <button onClick={handleCreateDiary} className={styles.createDiaryButton}>
+                여행일기 생성
+            </button>
+        )}
           {isWaitingForAIResponse && (
-            <div className={`${personasChatsty.message} ${personasChatsty.ai}`}>
+            <div className={`${styles.message} ${styles.ai}`}>
               <img src={loading} alt="Loading" />
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
       </div>
-      <form onSubmit={handleSend} className={personasChatsty.inputArea}>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="메시지 입력"
-          className={personasChatsty.inputField}
-        />
-        <button type="submit" className={personasChatsty.sendButton}>전송</button>
-      </form>
+      {messages.length < 20 && (
+        <form onSubmit={handleSend} className={styles.inputArea}>
+            <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="메시지 입력"
+                className={styles.inputField}
+            />
+            <button type="submit" className={styles.sendButton}>전송</button>
+        </form>
+        )}
+
+
     </div>
   )
 } 
 
-export default PersonaChat;
+export default InsightWrite;

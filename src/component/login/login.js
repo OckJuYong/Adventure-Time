@@ -43,16 +43,8 @@ function Login() {
       console.log("로그인 응답:", loginResponse.data);
       alert("로그인 성공!");
   
-      // 로그인 성공 후 사용자 정보 GET 요청
-      try {
-        const userInfoResponse = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/test');
-        console.log("사용자 정보:", userInfoResponse.data);
-      } catch (infoError) {
-        console.error("사용자 정보 가져오기 실패:", infoError);
-      }
-  
       // 로그인 성공 후 이동할 페이지로 네비게이트
-      navigate('/dashboard'); // 예시 경로
+      navigate('/logincom'); // 예시 경로
     } catch (error) {
       console.error("로그인 오류:", error);
       alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");

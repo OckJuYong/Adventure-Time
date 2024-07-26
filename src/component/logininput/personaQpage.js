@@ -30,7 +30,8 @@ const TravelQuestions = () => {
       setSliderValue(answers[currentQuestion + 1]);
     } else {
       // 마지막 질문에서 '완료' 버튼을 눌렀을 때
-      navigate('/InfoResult', { state: { answers } });
+      console.log("Travel Questions Answers:", answers);
+      navigate('/potouploadpage', { state: { travelAnswers: answers } });
     }
   };
 

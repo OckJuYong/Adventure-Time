@@ -1,29 +1,59 @@
 .main_container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    height: 100vh;
+    margin-top: 15vh;
 }
 
 .pre_container {
-    margin-top: 15%;
-    margin-right: 30%;
+    text-align: center;
 }
 
 .user_pre {
-    font-size: 45px;
+    font-size: 7vw;
+    margin-bottom: 20px;
 }
 
 .personaImg {
     width: 35vw;
+    max-width: 300px;
+    border-radius: 10px;
+}
+
+.extracted_words_title {
+    font-size: 4vw;
+    margin-top: 5vh;
+    margin-left: 5vw;
+}
+
+.extracted_words_container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5vw;
+    gap: 2vw;
+    margin-bottom: 15vh;
+}
+
+.extracted_word {
+    border: 1px solid black;
+    padding: 8px 15px;
+    border-radius: 40px;
+    font-size: 3.5vw;
 }
 
 .next_btn {
-    font-size: 30px;
+    font-size: 5vw;
     width: 80%;
     height: 7vh;
     border-radius: 50px;
     color: white;
     background-color: #6285E1;
-    margin-top: 65%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10vw;
+}
+
+.next_btn:hover {
+    background-color: #4a69b1;
 }
