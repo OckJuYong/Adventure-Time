@@ -1,59 +1,71 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie';  // 쿠키를 읽기 위한 라이브러리
 
 // 전역 변수
 const djangoServerUrl = 'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app';
 
-// 쿠키에서 JWT 토큰을 가져오는 유틸리티 함수
-const getAuthTokens = () => ({
-  jwtToken: Cookies.get('jwtToken'),
-  jwtRefreshToken: Cookies.get('jwtRefreshToken'),
-});
+// axios 기본 설정
+axios.defaults.withCredentials = true;
 
 // App 컴포넌트
 const Test = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [currentRoomId, setCurrentRoomId] = useState(null);
   const [chatRooms, setChatRooms] = useState([]);
-  const [userId, setUserId] = useState(null);  // 새로운 상태 추가
+  const [userId, setUserId] = useState(null);
+
+  const [userInfo, setUserInfo] = useState(null);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(() => {
-    if (currentUser) {
-      loadChatRooms();
-    }
-  }, [currentUser]);
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading', {
+          withCredentials: true
+        });
+        setUserInfo(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("사용자 정보 가져오기 실패:", error);
+        setError("사용자 정보를 가져오는데 실패했습니다.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const loadChatRooms = async () => {
-    try {
-      const response = await axios.get(`${djangoServerUrl}/chat/rooms/?travel_user_id=${currentUser.id}`);
-      const rooms = response.data;
-      rooms.sort((a, b) => new Date(b.latest_message_timestamp) - new Date(a.latest_message_timestamp));
-      setChatRooms(rooms);
-    } catch (error) {
-      console.error('Error in loadChatRooms:', error);
-    }
-  };
+    fetchUserInfo();
+  }, []);
 
-  // 새로운 함수 추가
+
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     loadChatRooms();
+  //   }
+  // }, [currentUser]);
+
+  // const loadChatRooms = async () => {
+  //   try {
+  //     const response = await axios.get(`${djangoServerUrl}/chat/rooms/?travel_user_id=${currentUser.id}`);
+  //     const rooms = response.data;
+  //     rooms.sort((a, b) => new Date(b.latest_message_timestamp) - new Date(a.latest_message_timestamp));
+  //     setChatRooms(rooms);
+  //   } catch (error) {
+  //     console.error('Error in loadChatRooms:', error);
+  //   }
+  // };
+
   const createUser = async () => {
     try {
-      const { jwtToken, jwtRefreshToken } = getAuthTokens();
-      const response = await axios.post(
-        `${djangoServerUrl}/users/`,
-        {},
-        {
-          headers: {
-            'jwtToken': jwtToken,
-            'jwtRefreshToken': jwtRefreshToken
-          },
-          withCredentials: true // 쿠키를 포함하여 요청을 보냄
-        }
-      );
-      setUserId(response.data.id);  // 서버에서 반환한 사용자 ID를 저장
+      const response = await axios.post(`${djangoServerUrl}/users/`, {});
+      setUserId(response.data.id);
       console.log('User created with ID:', response.data.id);
     } catch (error) {
-      console.error('Error creating user:', error);
+      console.error('Error creating user:', error.response?.data, error.response?.status);
+      if (error.response) {
+        console.log(error.response.headers);
+      }
     }
   };
 

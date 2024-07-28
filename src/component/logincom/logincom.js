@@ -10,7 +10,9 @@ function Logincom() {
     const navigate = useNavigate();
 
     const create_persona = () => {
-        navigate("/TravelQuestions", { state: { userInfo: userInfo } });
+        navigate("/TravelQuestions", { 
+          state: { userInfo: userInfo },
+          replace: true });
     }
 
     const goToTestPage = () => {
