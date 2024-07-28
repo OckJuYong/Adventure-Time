@@ -65,6 +65,7 @@ const Test = () => {
       console.error('Error creating user:', error.response?.data, error.response?.status);
       if (error.response) {
         console.log(error.response.headers);
+        console.log(error.response);
       }
     }
   };
