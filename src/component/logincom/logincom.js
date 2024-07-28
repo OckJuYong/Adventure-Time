@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Logincomstyle from "./logincom.module.css"
+import Logincomstyle from "./logincom.module.css";
 import axios from "axios";
 
-function Logincom(){
+function Logincom() {
     const [userInfo, setUserInfo] = useState(null);
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -11,6 +11,10 @@ function Logincom(){
 
     const create_persona = () => {
         navigate("/TravelQuestions", { state: { userInfo: userInfo } });
+    }
+
+    const goToTestPage = () => {
+        navigate("/test");
     }
   
     useEffect(() => {
@@ -51,6 +55,7 @@ function Logincom(){
             </p>
 
             <button className={Logincomstyle.button} onClick={create_persona}>페르소나 생성하기</button>
+            <button className={Logincomstyle.button} onClick={goToTestPage}>테스트 페이지로 이동</button>
             <div className={Logincomstyle.circleContainer}>
                 <div className={Logincomstyle.circle}></div>
                 <div className={Logincomstyle.circle2}></div>
