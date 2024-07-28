@@ -22,6 +22,9 @@ function Dashboard() {
         const jwtToken = response.headers['jwt-token'];
         const jwtRefreshToken = response.headers['jwt-refresh-token'];
 
+        localStorage.setItem('jwtToken', Cookies.get('jwtToken'));
+        localStorage.setItem('jwtRefreshToken', Cookies.get('jwtRefreshToken'));
+
         if (jwtToken) {
           Cookies.set('jwtToken', jwtToken, { expires: 7 }); // 7일 동안 유효
         }
