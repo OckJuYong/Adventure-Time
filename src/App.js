@@ -15,6 +15,9 @@ import Logincom from './component/logincom/logincom';
 import Potouploadpage from './component/potoupload/potoupload';
 import Potocom from './component/potocom/potocom';
 import Managemate from './component/manage_mate/managemate';
+import Firstmatepate from './component/first_mate/firtsmate';
+import Nextmate from './component/next_mate/mextmate';
+import Mateprop1 from './component/mate_prop1/mateprop1';
 function App() {
   return (
     <BrowserRouter>
@@ -35,7 +38,9 @@ function App() {
         
 
         <Route path="/Managematepage" element={<Managemate/>} />
-
+         <Route path="/frmatepage" element={<Firstmatepate/>} />
+        <Route path="/nextpage" element={<Nextmate></Nextmate>} />
+        <Route path="/mateporp1" element={< Mateprop1></ Mateprop1>} />
             
         </Routes>
     </BrowserRouter>
