@@ -53,9 +53,9 @@ function Logincom() {
                 서비스를 시작하기 전,<br/>
                 {userName}님의 여행 페르소나를 생성할게요!
             </p>
+            <button className={Logincomstyle.button1} onClick={goToTestPage}>테스트 페이지로 이동</button>
 
             <button className={Logincomstyle.button} onClick={create_persona}>페르소나 생성하기</button>
-            <button className={Logincomstyle.button} onClick={goToTestPage}>테스트 페이지로 이동</button>
             <div className={Logincomstyle.circleContainer}>
                 <div className={Logincomstyle.circle}></div>
                 <div className={Logincomstyle.circle2}></div>
