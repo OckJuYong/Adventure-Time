@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+
+// 전역 변수
+const djangoServerUrl = 'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app';
 
 // App 컴포넌트
 const Test = () => {
@@ -15,11 +19,8 @@ const Test = () => {
 
   const loadChatRooms = async () => {
     try {
-      const response = await fetch(`${djangoServerUrl}/chat/rooms/?travel_user_id=${currentUser.id}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const rooms = await response.json();
+      const response = await axios.get(`${djangoServerUrl}/chat/rooms/?travel_user_id=${currentUser.id}`);
+      const rooms = response.data;
       rooms.sort((a, b) => new Date(b.latest_message_timestamp) - new Date(a.latest_message_timestamp));
       setChatRooms(rooms);
     } catch (error) {
@@ -30,22 +31,9 @@ const Test = () => {
   // 새로운 함수 추가
   const createUser = async () => {
     try {
-      const response = await fetch('https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app/users/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        // 빈 객체를 보냅니다. 아무 정보도 보내지 않습니다.
-        body: JSON.stringify({})
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      setUserId(data.id);  // 서버에서 반환한 사용자 ID를 저장
-      console.log('User created with ID:', data.id);
+      const response = await axios.post('https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app/users/', {});
+      setUserId(response.data.id);  // 서버에서 반환한 사용자 ID를 저장
+      console.log('User created with ID:', response.data.id);
     } catch (error) {
       console.error('Error creating user:', error);
     }
@@ -83,25 +71,15 @@ const Login = ({ setCurrentUser }) => {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch(`${djangoServerUrl}/chat/login/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ travel_user_id: travelUserId, gender })
+      const response = await axios.post(`${djangoServerUrl}/chat/login/`, {
+        travel_user_id: travelUserId,
+        gender: gender,
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setLoginError(errorData.error || 'Login failed.');
-        return;
-      }
-
-      const userData = await response.json();
+      const userData = response.data;
       setCurrentUser({ id: userData.travel_user_id, gender: userData.gender });
     } catch (error) {
       console.error('Error in loginAsUser:', error);
-      setLoginError('An unexpected error occurred.');
+      setLoginError(error.response?.data?.error || 'Login failed.');
     }
   };
 
@@ -161,18 +139,15 @@ const ChatRoom = ({ roomId, currentUser, setCurrentRoomId }) => {
 
   const loadMessages = async () => {
     try {
-      const response = await fetch(`${djangoServerUrl}/chat/${roomId}/messages/`);
-      if (response.status === 404) {
+      const response = await axios.get(`${djangoServerUrl}/chat/${roomId}/messages/`);
+      setMessages(response.data);
+    } catch (error) {
+      if (error.response?.status === 404) {
         console.log(`No messages found for room ${roomId}`);
         setMessages([]);
-      } else if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
       } else {
-        const messagesData = await response.json();
-        setMessages(messagesData);
+        console.error('Error loading messages:', error);
       }
-    } catch (error) {
-      console.error('Error loading messages:', error);
     }
   };
 
@@ -230,8 +205,5 @@ const ChatRoom = ({ roomId, currentUser, setCurrentRoomId }) => {
     </div>
   );
 };
-
-// 전역 변수
-const djangoServerUrl = 'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app';
 
 export default Test;
