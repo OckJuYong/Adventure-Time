@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';  // 쿠키를 읽기 위한 라이브러리
 
 // 전역 변수
 const djangoServerUrl = 'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app';
+
+// 쿠키에서 JWT 토큰을 가져오는 유틸리티 함수
+const getAuthTokens = () => ({
+  jwtToken: Cookies.get('jwtToken'),
+  jwtRefreshToken: Cookies.get('jwtRefreshToken'),
+});
 
 // App 컴포넌트
 const Test = () => {
@@ -31,10 +38,17 @@ const Test = () => {
   // 새로운 함수 추가
   const createUser = async () => {
     try {
+      const { jwtToken, jwtRefreshToken } = getAuthTokens();
       const response = await axios.post(
-        'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app/users/',
+        `${djangoServerUrl}/users/`,
         {},
-        { withCredentials: true } // 쿠키를 포함하여 요청을 보냄
+        {
+          headers: {
+            'jwtToken': jwtToken,
+            'jwtRefreshToken': jwtRefreshToken
+          },
+          withCredentials: true // 쿠키를 포함하여 요청을 보냄
+        }
       );
       setUserId(response.data.id);  // 서버에서 반환한 사용자 ID를 저장
       console.log('User created with ID:', response.data.id);
