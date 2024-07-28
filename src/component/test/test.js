@@ -22,8 +22,11 @@ const Test = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading', {
-          withCredentials: true
+        const response = await axios.get('/api1/reading', {
+          withCredentials: true,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
         });
         setUserInfo(response.data);
         console.log(response.data);
@@ -58,7 +61,7 @@ const Test = () => {
 
   const createUser = async () => {
     try {
-      const response = await axios.post(`${djangoServerUrl}/users/`, {}, {
+      const response = await axios.post(`/api2/users/`, {}, {
         withCredentials: true
       });
       setUserId(response.data.id);
