@@ -14,7 +14,7 @@ import Login from './component/login/login';
 import Logincom from './component/logincom/logincom';
 import Potouploadpage from './component/potoupload/potoupload';
 import Potocom from './component/potocom/potocom';
-
+import Managemate from './component/manage_mate/managemate';
 function App() {
   return (
     <BrowserRouter>
@@ -34,7 +34,9 @@ function App() {
         <Route path="/potocompage" element={<Potocom/>} />
         
 
-        
+        <Route path="/Managematepage" element={<Managemate/>} />
+
+            
         </Routes>
     </BrowserRouter>
   );

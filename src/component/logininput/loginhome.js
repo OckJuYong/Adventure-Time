@@ -8,6 +8,9 @@ function Logininputpage() {
     const handleidinputclick = () => {
         navigate("/mkidpage");
     };
+    const handleidinputclick1 = () => {
+        navigate("/logincom");
+    };
     
     return (
         <div className={styles.container}>
@@ -18,7 +21,7 @@ function Logininputpage() {
                 <p className={styles.loginextext}>여행 메이트를 찾아 함께 떠나봐요!</p>
             </div>
             <div className={styles.inputbuttonbox}>
-                <button className={styles.logininput}>로그인</button>
+                <button className={styles.logininput} onClick={ handleidinputclick1}>로그인</button>
                 <button className={styles.mkidinput} onClick={handleidinputclick}>계정생성</button>
             </div>
         </div>
