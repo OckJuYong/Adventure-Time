@@ -31,7 +31,11 @@ const Test = () => {
   // 새로운 함수 추가
   const createUser = async () => {
     try {
-      const response = await axios.post('https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app/users/', {});
+      const response = await axios.post(
+        'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app/users/',
+        {},
+        { withCredentials: true } // 쿠키를 포함하여 요청을 보냄
+      );
       setUserId(response.data.id);  // 서버에서 반환한 사용자 ID를 저장
       console.log('User created with ID:', response.data.id);
     } catch (error) {
