@@ -14,32 +14,40 @@ const Test = () => {
   const [currentRoomId, setCurrentRoomId] = useState(null);
   const [chatRooms, setChatRooms] = useState([]);
   const [userId, setUserId] = useState(null);
-
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-
-  const jwtToken = Cookies.get('jwtToken');
-  const jwtRefreshToken = Cookies.get('jwtRefreshToken');
-
-  if (!jwtToken || !jwtRefreshToken) {
-    console.error('Tokens are missing');
-    return;
-  }
-
-
   useEffect(() => {
     const fetchUserInfo = async () => {
+      const jwtToken = Cookies.get('jwtToken');
+      const jwtRefreshToken = Cookies.get('jwtRefreshToken');
+
+      console.log('Before fetching user info - jwtToken:', jwtToken);
+      console.log('Before fetching user info - jwtRefreshToken:', jwtRefreshToken);
+
+      if (!jwtToken || !jwtRefreshToken) {
+        console.error('Tokens are missing');
+        setError('Tokens are missing');
+        setIsLoading(false);
+        return;
+      }
+
       try {
-        const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading', {
+        const response = await axios.get(`${djangoServerUrl}/travel-user/reading`, {
           withCredentials: true,
           headers: {
             'X-Requested-With': 'XMLHttpRequest'
           }
         });
         setUserInfo(response.data);
-        console.log(response.data);
+        console.log('User info:', response.data);
+
+        // 쿠키를 설정하고 로그를 찍음
+        Cookies.set('userInfo', JSON.stringify(response.data));
+        console.log('After fetching user info - jwtToken:', Cookies.get('jwtToken'));
+        console.log('After fetching user info - jwtRefreshToken:', Cookies.get('jwtRefreshToken'));
+        console.log('After fetching user info - userInfo:', Cookies.get('userInfo'));
       } catch (error) {
         console.error("사용자 정보 가져오기 실패:", error);
         setError("사용자 정보를 가져오는데 실패했습니다.");
@@ -51,25 +59,15 @@ const Test = () => {
     fetchUserInfo();
   }, []);
 
-
-  // useEffect(() => {
-  //   if (currentUser) {
-  //     loadChatRooms();
-  //   }
-  // }, [currentUser]);
-
-  // const loadChatRooms = async () => {
-  //   try {
-  //     const response = await axios.get(`${djangoServerUrl}/chat/rooms/?travel_user_id=${currentUser.id}`);
-  //     const rooms = response.data;
-  //     rooms.sort((a, b) => new Date(b.latest_message_timestamp) - new Date(a.latest_message_timestamp));
-  //     setChatRooms(rooms);
-  //   } catch (error) {
-  //     console.error('Error in loadChatRooms:', error);
-  //   }
-  // };
-
   const createUser = async () => {
+    const jwtToken = Cookies.get('jwtToken');
+    const jwtRefreshToken = Cookies.get('jwtRefreshToken');
+
+    if (!jwtToken || !jwtRefreshToken) {
+      console.error('Tokens are missing');
+      return;
+    }
+
     try {
       const response = await axios.post(`${djangoServerUrl}/users/`, {
         jwtToken: jwtToken,

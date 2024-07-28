@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 function Dashboard() {
   const [userInfo, setUserInfo] = useState(null);
@@ -16,6 +17,18 @@ function Dashboard() {
         });
         setUserInfo(response.data);
         console.log(response.data);
+
+        // 응답 헤더에서 토큰을 가져와 쿠키에 저장
+        const jwtToken = response.headers['jwt-token'];
+        const jwtRefreshToken = response.headers['jwt-refresh-token'];
+
+        if (jwtToken) {
+          Cookies.set('jwtToken', jwtToken, { expires: 7 }); // 7일 동안 유효
+        }
+        if (jwtRefreshToken) {
+          Cookies.set('jwtRefreshToken', jwtRefreshToken, { expires: 30 }); // 30일 동안 유효
+        }
+
       } catch (error) {
         console.error("사용자 정보 가져오기 실패:", error);
         setError("사용자 정보를 가져오는데 실패했습니다.");
