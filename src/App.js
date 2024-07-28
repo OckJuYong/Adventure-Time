@@ -35,6 +35,8 @@ import InsightWrite from './component/insight/insightWrite';
 
 import CreateDiary from './component/insight/createDiary';
 
+import Test from './component/test/test';
+
 function App() {
   return (
     <BrowserRouter>
@@ -77,7 +79,8 @@ function App() {
             <Route path="/Insight" element={<Insight/>} />
             <Route path="/insightWrite" element={<InsightWrite/>} />
             <Route path="/CreateDiary" element={<CreateDiary/>} />
-
+            
+            <Route path="/Test" element={<Test/>} />
 
 
           </Routes>
