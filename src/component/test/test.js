@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 // 전역 변수
 const djangoServerUrl = 'https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app';
@@ -17,6 +18,15 @@ const Test = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+
+  const jwtToken = Cookies.get('jwtToken');
+  const jwtRefreshToken = Cookies.get('jwtRefreshToken');
+
+  if (!jwtToken || !jwtRefreshToken) {
+    console.error('Tokens are missing');
+    return;
+  }
 
 
   useEffect(() => {
@@ -61,12 +71,16 @@ const Test = () => {
 
   const createUser = async () => {
     try {
-      const response = await axios.post(`${djangoServerUrl}/users/`, {}, {
+      const response = await axios.post(`${djangoServerUrl}/users/`, {
+        jwtToken: jwtToken,
+        jwtRefreshToken: jwtRefreshToken
+      }, {
         withCredentials: true,
         headers: {
           'Content-Type': 'application/json'
-      }
+        }
       });
+      
       setUserId(response.data.id);
       console.log('User created with ID:', response.data.id);
     } catch (error) {
