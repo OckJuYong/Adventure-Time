@@ -58,7 +58,7 @@ const Test = () => {
 
   const createUser = async () => {
     try {
-      const response = await axios.post(`${djangoServerUrl}/users/`, {
+      const response = await axios.post(`${djangoServerUrl}/users/`, {}, {
         withCredentials: true
       });
       setUserId(response.data.id);
