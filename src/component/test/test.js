@@ -22,7 +22,7 @@ const Test = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get('/api1/reading', {
+        const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading', {
           withCredentials: true,
           headers: {
             'X-Requested-With': 'XMLHttpRequest'
@@ -61,8 +61,11 @@ const Test = () => {
 
   const createUser = async () => {
     try {
-      const response = await axios.post(`/api2/users/`, {}, {
-        withCredentials: true
+      const response = await axios.post(`${djangoServerUrl}/users/`, {}, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json'
+      }
       });
       setUserId(response.data.id);
       console.log('User created with ID:', response.data.id);

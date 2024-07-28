@@ -13,6 +13,7 @@
     "axios": "^1.7.2",
     "cra-template-pwa": "2.0.0",
     "date-fns": "^3.6.0",
+    "http-proxy-middleware": "^3.0.0",
     "js-cookie": "^3.0.5",
     "react": "^18.3.1",
     "react-calendar": "^5.0.0",
@@ -47,5 +48,4 @@
     ]
   },
   "proxy": "https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app, https://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app"
-  
 }
