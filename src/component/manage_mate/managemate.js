@@ -50,12 +50,15 @@ function ReceivedRequests() {
 
     const handleAccept = async (requestId) => {
         try {
-            const myUserId = localStorage.getItem('memberId');
+            const jwtToken = localStorage.getItem('jwtToken');
+            const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+            const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
+
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
-                friendTravelUserId: requestId
+                friendTravelUserId: memberId
             }, {
                 headers: {
-                    'Cookie': `jwtToken=${localStorage.getItem('jwtToken')}; jwtRefreshToken=${localStorage.getItem('jwtRefreshToken')}`
+                    'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
                 }
             });
 
@@ -69,12 +72,15 @@ function ReceivedRequests() {
 
     const handleReject = async (requestId) => {
         try {
-            const myUserId = localStorage.getItem('memberId');
+            const jwtToken = localStorage.getItem('jwtToken');
+            const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+            const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
+
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
-                friendTravelUserId: requestId
+                friendTravelUserId: memberId
             }, {
                 headers: {
-                    'Cookie': `jwtToken=${localStorage.getItem('jwtToken')}; jwtRefreshToken=${localStorage.getItem('jwtRefreshToken')}`
+                    'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
                 }
             });
 
