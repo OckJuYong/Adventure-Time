@@ -57,7 +57,8 @@ function ReceivedRequests() {
             console.log(requestId);
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
-                friendTravelUserId: requestId,
+                friendTravelUserId: receivedRequests[0].friendTravelUserId
+                ,
             }, {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
@@ -80,7 +81,7 @@ function ReceivedRequests() {
             const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
-                friendTravelUserId: requestId,
+                friendTravelUserId: receivedRequests[0].friendTravelUserId
             }, {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
