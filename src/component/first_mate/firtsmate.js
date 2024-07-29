@@ -16,7 +16,7 @@ function Firstmatepage() {
     }
 
     const manageMate = () => {
-        navigate("/manage-mate");  // 메이트 관리 페이지로 이동
+        navigate("/Managematepage");  // 메이트 관리 페이지로 이동
     }
 
     return (
