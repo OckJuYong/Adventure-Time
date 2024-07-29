@@ -18,6 +18,7 @@ function Logincom() {
           replace: true });
     }
 
+
     const goToTestPage = () => {
         navigate("/test");
     }
@@ -67,6 +68,8 @@ function Logincom() {
     }
 
     const userName = userInfo && userInfo.name ? userInfo.name : 'OOO';
+    localStorage.setItem('memberId', userInfo.member.memberId);
+
 
     return(
         <div className={Logincomstyle.logincombox}>
