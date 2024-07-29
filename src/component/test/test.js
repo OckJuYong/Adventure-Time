@@ -61,15 +61,21 @@ const Test = () => {
         jwtRefreshToken: jwtRefreshToken
       }, {
         withCredentials: true,
-        
         headers: {
           'Content-Type': 'application/json'
-          
-      }
+        }
       });
-      setUserId(response.data);
-      console.log(response.data);
-      console.log('User created with ID:', response.data.id);
+      
+      // response.data가 객체일 경우 id만 저장
+      if (typeof response.data === 'object' && response.data !== null) {
+        setUserId(response.data.id);
+        console.log('User created with ID:', response.data.id);
+      } else {
+        setUserId(response.data);
+        console.log('User created with ID:', response.data);
+      }
+      
+      console.log('Full response data:', response.data);
     } catch (error) {
       console.error('Error creating user:', error.response?.data, error.response?.status);
       if (error.response) {
