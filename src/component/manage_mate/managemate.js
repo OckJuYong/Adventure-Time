@@ -1,7 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import styles from "./managemate.module.css";
 
 function Managemate() {
+    const [requestList, setRequestList] = useState(null);
+
+    useEffect(() => {
+        const fetchRequestList = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/friend/request-list');
+                setRequestList(response.data);
+                console.log('요청 목록:', response.data);
+            } catch (error) {
+                console.error('요청 목록을 가져오는 데 실패했습니다:', error);
+            }
+        };
+
+        fetchRequestList();
+    }, []);
+
     return (
         <div className={styles.mainbox}>
             <header className={styles.header}>

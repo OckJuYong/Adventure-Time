@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./mateprop.module.css";
 import { useSwipeable } from 'react-swipeable';
+import axios from 'axios';
 
 function Mateprop1() {
     const [index1, setIndex1] = useState(0);
@@ -26,6 +27,19 @@ function Mateprop1() {
         { name: "영희님", location: "교토", percentage: 90 },
         { name: "길동님", location: "나고야", percentage: 80 },
     ];
+
+    const handlePropose = async () => {
+        try {
+            const response = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/additional', {
+                friendTravelUserId: (index1 + 1).toString()
+            });
+            console.log('제안 성공:', response.data);
+            // 여기에 제안 성공 후 처리 로직을 추가할 수 있습니다.
+        } catch (error) {
+            console.error('제안 실패:', error);
+            // 여기에 제안 실패 시 처리 로직을 추가할 수 있습니다.
+        }
+    };
 
     return (
         <div className={styles.containerWrapper}>
@@ -67,7 +81,7 @@ function Mateprop1() {
                     </div>
 
                     <button className={styles.prevButton}>이전</button>
-                    <button className={styles.nextButton}>제안하기</button>
+                    <button className={styles.nextButton} onClick={handlePropose}>제안하기</button>
                 </div>
             </div>
         </div>
