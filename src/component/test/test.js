@@ -29,15 +29,17 @@ const Test = () => {
           }
         });
         setUserInfo(response.data);
-        console.log(response.data);
-
-        // 쿠키 정보 로컬 스토리지에 저장
-        const jwtToken = Cookies.get('jwtToken');
-        const jwtRefreshToken = Cookies.get('jwtRefreshToken');
-        console.log(jwtToken);
-        console.log(Cookies.get('jwtToken'));
-        if (jwtToken) localStorage.setItem('jwtToken', jwtToken);
-        if (jwtRefreshToken) localStorage.setItem('jwtRefreshToken', jwtRefreshToken);
+        console.log('Response:', response);
+        console.log('Response headers:', response.headers);
+  
+        // 약간의 지연 후 쿠키 확인
+        setTimeout(() => {
+          console.log('jwtToken:', Cookies.get('jwtToken'));
+          console.log('jwtRefreshToken:', Cookies.get('jwtRefreshToken'));
+          console.log('All cookies:', Cookies.get());
+          console.log('Document cookie:', document.cookie);
+        }, 1000);
+  
       } catch (error) {
         console.error("사용자 정보 가져오기 실패:", error);
         setError("사용자 정보를 가져오는데 실패했습니다.");
@@ -45,7 +47,7 @@ const Test = () => {
         setIsLoading(false);
       }
     };
-
+  
     fetchUserInfo();
   }, []);
 
@@ -55,12 +57,14 @@ const Test = () => {
       const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
 
       const response = await axios.post(`${djangoServerUrl}/users/`, {
-        jwtToken: Cookies.get('jwtToken'),
-        jwtRefreshToken: Cookies.get('jwtRefreshToken')
+        jwtToken: jwtToken,
+        jwtRefreshToken: jwtRefreshToken
       }, {
         withCredentials: true,
+        
         headers: {
           'Content-Type': 'application/json'
+          
       }
       });
       setUserId(response.data.id);

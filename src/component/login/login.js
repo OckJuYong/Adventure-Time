@@ -41,7 +41,13 @@ function Login() {
       });
   
       console.log("로그인 응답:", loginResponse.data);
+
+      localStorage.setItem('jwtToken', loginResponse.data.jwtToken);
+      localStorage.setItem('jwtRefreshToken', loginResponse.data.jwtRefreshToken);
+
       alert("로그인 성공!");
+
+
   
       // 로그인 성공 후 이동할 페이지로 네비게이트
       navigate('/logincom'); // 예시 경로
@@ -50,6 +56,8 @@ function Login() {
       alert("로그인에 실패했습니다. 이메일과 비밀번호를 확인해주세요.");
     }
   };
+
+  
 
   return (
     <div className={Loginstyle.container}>

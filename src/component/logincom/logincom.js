@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Logincomstyle from "./logincom.module.css";
 import axios from "axios";
 
+import Cookies from 'js-cookie';
+
+
 function Logincom() {
     const [userInfo, setUserInfo] = useState(null);
     const [error, setError] = useState(null);
@@ -23,10 +26,27 @@ function Logincom() {
       const fetchUserInfo = async () => {
         try {
           const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/reading', {
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+              'X-Requested-With': 'XMLHttpRequest'
+            }
           });
           setUserInfo(response.data);
-          console.log(response.data);
+          console.log(response);
+    
+          // 쿠키 정보 출력
+          console.log('jwtToken:', Cookies.get('jwtToken'));
+          console.log('jwtRefreshToken:', Cookies.get('jwtRefreshToken'));
+    
+          // 모든 쿠키 출력
+          console.log('All cookies:', Cookies.get());
+    
+          // 쿠키 정보 로컬 스토리지에 저장
+          const jwtToken = Cookies.get('jwtToken');
+          const jwtRefreshToken = Cookies.get('jwtRefreshToken');
+    
+          if (jwtToken) localStorage.setItem('jwtToken', jwtToken);
+          if (jwtRefreshToken) localStorage.setItem('jwtRefreshToken', jwtRefreshToken);
         } catch (error) {
           console.error("사용자 정보 가져오기 실패:", error);
           setError("사용자 정보를 가져오는데 실패했습니다.");
@@ -34,7 +54,7 @@ function Logincom() {
           setIsLoading(false);
         }
       };
-  
+    
       fetchUserInfo();
     }, []);
 
