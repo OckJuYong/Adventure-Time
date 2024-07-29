@@ -63,18 +63,24 @@ function Mateprop1() {
 
     const handlePropose = async () => {
         const selectedSlide = slides[index1];
+        const jwtToken = localStorage.getItem('jwtToken');
+        const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+
+        const config = {
+            headers: {
+                'jwtToken': jwtToken,
+                'jwtRefreshToken': jwtRefreshToken
+            }
+        };
+
         try {
             const response = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/additional', {
-                friendTravelUserId: slides[selectedSlide.travelUserId].travelUserId
-            });
+                friendTravelUserId: selectedSlide.travelUserId
+            }, config);
             console.log('Propose response:', response.data);
-            console.log(slides[selectedSlide.travelUserId].travelUserId);
-
+            navigate('/Managematepage', { state: { selectedMate: selectedSlide } });
         } catch (error) {
             console.error('Error proposing:', error);
-            console.log(slides[selectedSlide.travelUserId].travelUserId);
-
-            // Handle error accordingly
         }
     };
 
