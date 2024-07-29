@@ -68,7 +68,8 @@ function Mateprop1() {
                 friendTravelUserId: selectedSlide.travelUserId
             });
             console.log('Propose response:', response.data);
-            // navigate('/Managematepage', { state: { selectedMate: selectedSlide } });
+            console.log(selectedSlide.travelUserId);
+
         } catch (error) {
             console.error('Error proposing:', error);
             // Handle error accordingly
