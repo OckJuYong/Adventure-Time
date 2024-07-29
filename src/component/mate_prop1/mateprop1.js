@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';  // axios를 사용하여 API 요청을 보냅니다.
+import axios from 'axios';
 import styles from "./mateprop.module.css";
 import { useSwipeable } from 'react-swipeable';
 
@@ -14,11 +14,9 @@ function Mateprop1() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // 로컬 스토리지에서 토큰 가져오기
                 const jwtToken = localStorage.getItem('jwtToken');
                 const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
 
-                // API 요청 설정
                 const config = {
                     headers: {
                         'jwtToken': jwtToken,
@@ -34,10 +32,8 @@ function Mateprop1() {
                 console.log(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
-                // 토큰이 만료되었거나 유효하지 않은 경우 처리
                 if (error.response && error.response.status === 401) {
                     console.log("Token expired or invalid. Redirecting to login...");
-                    // 로그인 페이지로 리다이렉트하는 로직을 여기에 추가할 수 있습니다.
                     // navigate('/login');
                 }
             }
@@ -45,7 +41,6 @@ function Mateprop1() {
 
         fetchData();
     }, []);
-
 
     const handleSwipedLeft1 = () => {
         setIndex1((prevIndex) => (prevIndex + 1) % slides.length);
@@ -66,9 +61,18 @@ function Mateprop1() {
         navigate(-1);
     };
 
-    const handlePropose = () => {
+    const handlePropose = async () => {
         const selectedSlide = slides[index1];
-        navigate('/Managematepage', { state: { selectedMate: selectedSlide } });
+        try {
+            const response = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/additional', {
+                friendTravelUserId: selectedSlide.travelUserId
+            });
+            console.log('Propose response:', response.data);
+            // navigate('/Managematepage', { state: { selectedMate: selectedSlide } });
+        } catch (error) {
+            console.error('Error proposing:', error);
+            // Handle error accordingly
+        }
     };
 
     return (
