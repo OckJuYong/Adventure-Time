@@ -72,6 +72,8 @@ function Mateprop1() {
 
         } catch (error) {
             console.error('Error proposing:', error);
+            console.log(slides[selectedSlide.travelUserId].travelUserId);
+
             // Handle error accordingly
         }
     };
