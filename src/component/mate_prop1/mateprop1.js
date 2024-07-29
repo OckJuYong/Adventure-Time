@@ -78,10 +78,9 @@ function Mateprop1() {
                 friendTravelUserId: slides[selectedSlide.travelUserId - 1].travelUserId
             }, config);
             console.log('Propose response:', response.data);
-            console.log(slides[selectedSlide.travelUserId - 1].travelUserId);
+            navigate("/Managematepage");
         } catch (error) {
             console.error('Error proposing:', error);
-            console.log(slides[selectedSlide.travelUserId - 1].travelUserId);
         }
     };
 
