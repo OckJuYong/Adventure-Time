@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import styles from "./managemate.module.css";
 
 // 내 메이트 컴포넌트
@@ -33,10 +34,46 @@ function ReceivedRequests() {
 
 // 보낸 요청 컴포넌트
 function SentRequests() {
+    const [sentRequests, setSentRequests] = useState([]);
+
+    useEffect(() => {
+        const fetchSentRequests = async () => {
+            try {
+                const jwtToken = localStorage.getItem('jwtToken');
+                const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+
+                const config = {
+                    headers: {
+                        'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
+                    }
+                };
+
+                const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/request-list', config);
+                setSentRequests(response.data);
+            } catch (error) {
+                console.error('Error fetching sent requests:', error);
+            }
+        };
+
+        fetchSentRequests();
+    }, []);
+
     return (
         <div className={styles.content}>
-            <p className={styles.count}>보낸 요청 0개</p>
-            <p className={styles.noMateMessage}>보낸 요청이 없습니다.</p>
+            <p className={styles.count}>보낸 요청 {sentRequests.length}개</p>
+            {sentRequests.length > 0 ? (
+                <ul>
+                    {sentRequests.map((request, index) => (
+                        <li key={index} className={styles.requestItem}>
+                            <p>이름: {request.name}</p>
+                            <p>위치: {request.location}</p>
+                            <p>궁합: {request.percentage}%</p>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className={styles.noMateMessage}>보낸 요청이 없습니다.</p>
+            )}
         </div>
     );
 }
@@ -47,7 +84,7 @@ function Managemate() {
     const [activeTab, setActiveTab] = useState('myMates');
     const [selectedMate, setSelectedMate] = useState(null);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (location.state && location.state.selectedMate) {
             setSelectedMate(location.state.selectedMate);
         }
