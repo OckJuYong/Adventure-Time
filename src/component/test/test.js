@@ -67,7 +67,8 @@ const Test = () => {
           
       }
       });
-      setUserId(response.data.id);
+      setUserId(response.data);
+      console.log(response.data);
       console.log('User created with ID:', response.data.id);
     } catch (error) {
       console.error('Error creating user:', error.response?.data, error.response?.status);
