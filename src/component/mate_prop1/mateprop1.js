@@ -65,10 +65,10 @@ function Mateprop1() {
         const selectedSlide = slides[index1];
         try {
             const response = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/additional', {
-                friendTravelUserId: selectedSlide.travelUserId
+                friendTravelUserId: slides[selectedSlide.travelUserId].travelUserId
             });
             console.log('Propose response:', response.data);
-            console.log(selectedSlide.travelUserId);
+            console.log(slides[selectedSlide.travelUserId].travelUserId);
 
         } catch (error) {
             console.error('Error proposing:', error);
