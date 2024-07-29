@@ -40,6 +40,7 @@ function ReceivedRequests() {
 
                 const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/standby-list', config);
                 setReceivedRequests(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching received requests:', error);
             }
