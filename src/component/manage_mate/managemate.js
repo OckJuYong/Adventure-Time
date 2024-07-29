@@ -3,6 +3,11 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from "./managemate.module.css";
 
+import backBtn from '../logininput/back.png';
+import message from './Vector.png';
+
+import Footer from '../footer/footer';
+
 // 내 메이트 컴포넌트
 function MyMates() {
     const [myMates, setMyMates] = useState([]);
@@ -21,6 +26,7 @@ function MyMates() {
 
                 const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/friend-list', config);
                 setMyMates(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching my mates:', error);
             }
@@ -29,16 +35,26 @@ function MyMates() {
         fetchMyMates();
     }, []);
 
+    const ChatStart = () => {
+        //여기에 소켓 연결
+        console.log("Chat Start");
+    }
+
     return (
         <div className={styles.content}>
-            <p className={styles.count}>내 메이트 {myMates.length}명</p>
-            <button className={styles.editButton}>편집</button>
+            <div className={styles.header_container}>
+                <p className={styles.count}>내 메이트 {myMates.length}명</p>
+                <button className={styles.editButton}>편집</button>
+            </div>
             {myMates.length > 0 ? (
                 myMates.map((mate) => (
                     <div key={mate.id} className={styles.selectedMateInfo}>
-                        <h2>{mate.name}</h2>
-                        <p>위치: {mate.location}</p>
-                        <p>궁합: {mate.percentage}%</p>
+                        <div className={styles.img}></div>
+                        <div className={styles.chat_container}>
+                            <p className={styles.userName}>{mate.friendTravelUserDto.name}</p>
+                            <p>한국형 페르소나</p>
+                        </div>
+                        <img src={message} className={styles.meesage} onClick={ChatStart}/>
                     </div>
                 ))
             ) : (
@@ -121,19 +137,24 @@ function ReceivedRequests() {
 
     return (
         <div className={styles.content}>
-            <p className={styles.count}>받은 요청 {receivedRequests.length}개</p>
+            <div className={styles.header_container}>
+                <p className={styles.count}>받은 요청 {receivedRequests.length}개</p>
+                <button className={styles.editButton}>편집</button>
+            </div>
             {receivedRequests.length > 0 ? (
-                <ul>
-                    {receivedRequests.map((request) => (
-                        <li key={request.id} className={styles.requestItem}>
-                            <p>이름: {request.name}</p>
-                            <p>위치: {request.location}</p>
-                            <p>궁합: {request.percentage}%</p>
-                            <button onClick={() => handleAccept(request.id)}>수락</button>
-                            <button onClick={() => handleReject(request.id)}>거절</button>
-                        </li>
-                    ))}
-                </ul>
+                receivedRequests.map((request) => (
+                    <div key={request.id} className={styles.selectedMateInfo}>
+                        <div className={styles.img}></div>
+                        <div className={styles.chat_container}>
+                            <p className={styles.userName}>{request.name}</p>
+                            <p>{request.location} • 궁합 {request.percentage}%</p>
+                        </div>
+                        <div className={styles.buttonContainer}>
+                            <button className={styles.acceptButton} onClick={() => handleAccept(request.id)}>수락</button>
+                            <button className={styles.rejectButton} onClick={() => handleReject(request.id)}>거절</button>
+                        </div>
+                    </div>
+                ))
             ) : (
                 <p className={styles.noMateMessage}>받은 요청이 없습니다.</p>
             )}
@@ -169,17 +190,21 @@ function SentRequests() {
 
     return (
         <div className={styles.content}>
-            <p className={styles.count}>보낸 요청 {sentRequests.length}개</p>
+            <div className={styles.header_container}>
+                <p className={styles.count}>보낸 요청 {sentRequests.length}개</p>
+                <button className={styles.editButton}>편집</button>
+            </div>
             {sentRequests.length > 0 ? (
-                <ul>
-                    {sentRequests.map((request) => (
-                        <li key={request.id} className={styles.requestItem}>
-                            <p>이름: {request.name}</p>
-                            <p>위치: {request.location}</p>
-                            <p>궁합: {request.percentage}%</p>
-                        </li>
-                    ))}
-                </ul>
+                sentRequests.map((request) => (
+                    <div key={request.id} className={styles.selectedMateInfo}>
+                        <div className={styles.img}></div>
+                        <div className={styles.chat_container}>
+                            <p className={styles.userName}>{request.name}</p>
+                            <p>{request.location} • 궁합 {request.percentage}%</p>
+                        </div>
+                        <p className={styles.pendingStatus}>대기중</p>
+                    </div>
+                ))
             ) : (
                 <p className={styles.noMateMessage}>보낸 요청이 없습니다.</p>
             )}
@@ -219,7 +244,7 @@ function Managemate() {
     return (
         <div className={styles.mainbox}>
             <header className={styles.header}>
-                <button className={styles.backButton} onClick={handleBack}>{'<'}</button>
+                <img src={backBtn} className={styles.backButton} onClick={handleBack}/>
                 <h1 className={styles.title}>메이트 관리</h1>
             </header>
             
@@ -245,21 +270,8 @@ function Managemate() {
             </nav>
             
             {renderContent()}
-            
-            <footer className={styles.footer}>
-                <button className={styles.footerButton}>
-                    <i className={styles.parkingIcon}></i>
-                    <span>패트스냅</span>
-                </button>
-                <button className={`${styles.footerButton} ${styles.active}`}>
-                    <i className={styles.mateIcon}></i>
-                    <span>메이트</span>
-                </button>
-                <button className={styles.footerButton}>
-                    <i className={styles.travelIcon}></i>
-                    <span>여행일기</span>
-                </button>
-            </footer>
+
+            <Footer />
         </div>
     );
 }

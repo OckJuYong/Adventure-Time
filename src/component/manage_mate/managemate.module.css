@@ -9,16 +9,20 @@
 
 .header {
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
+    width: 92vw;
     padding: 4vw;
-    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: -3vh;
 }
 
 .backButton {
-    font-size: 24px;
+    width: 3vw;
     background: none;
     border: none;
     cursor: pointer;
+    margin-right: 3vw;
 }
 
 .title {
@@ -26,13 +30,16 @@
     text-align: center;
     font-size: 6vw;
     font-weight: bold;
+    margin-right: 5vw;
 }
 
 .tabNav {
-   
     display: flex;
     border-bottom: 1px solid #e0e0e0;
+    margin: 0 10vw;
 }
+
+
 
 .tabButton {
     flex: 1;
@@ -68,26 +75,33 @@
     margin-left: 5px;
 }
 
-.content {
-    flex-grow: 1;
-    padding: 4vw;
-    position: relative;
+.header_container {
+    margin-top: -0vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 99vw;
+    background-color: #F3F3F3;
+    height: 7vh;
+    justify-content: space-around;
+    margin-bottom: 3vh;
 }
 
-.count {
-    font-size: 4vw;
-    color: #888;
+.count{
+    font-size: 4.5vw;
+    font-weight: bold;
+    margin-left: -15vw;
+    height: 8vh;
+    display: flex;
+    align-items: center;
 }
 
 .editButton {
-    padding: 4vw;
-    position: absolute;
-    right: 3vw;
-    top: 2vh;
+    top: -0.2vh;
     background: none;
     border: none;
-    color: #007aff;
     font-size: 4vw;
+    margin-right: -15vw;
 }
 
 .noMateMessage {
@@ -99,39 +113,36 @@
     font-size: 16px;
 }
 
-.footer {
-    display: flex;
-    border-top: 1px solid #e0e0e0;
+.img {
+    border: 1px solid black;
+    width: 15vw;
+    height: 10vh;
+    border-radius: 100px;
+    margin-left: 5vw;
 }
 
-.footerButton {
-    flex: 1;
+.chat_container {
+    margin-left: 5vw;
+    padding: 0;
+    font-size: 4vw;
+}
+
+.userName {
+    font-size: 5vw;
+    font-weight: bold;
+    margin-bottom: -2vh;
+}
+
+.meesage {
+    width: 7vw;
+    margin-left: 31vw;
+}
+
+.selectedMateInfo {
+    border-bottom: 1px solid black;
+    font: bold;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    padding: 10px 0;
-    background: none;
-    border: none;
-    color: #888;
-}
-
-.footerButton.active {
-    color: #000;
-}
-
-.footerButton i {
-    font-size: 24px;
-    margin-bottom: 5px;
-}
-
-.footerButton span {
-    font-size: 12px;
-}
-
-/* 아이콘은 실제 이미지나 아이콘 라이브러리를 사용해야 합니다. 여기서는 플레이스홀더로 표시합니다. */
-.parkingIcon, .mateIcon, .travelIcon {
-    width: 24px;
-    height: 24px;
-    background-color: #888;
-    display: inline-block;
+    margin-top: -3vh;
 }
