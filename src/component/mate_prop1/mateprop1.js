@@ -1,12 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';  // axios를 사용하여 API 요청을 보냅니다.
 import styles from "./mateprop.module.css";
 import { useSwipeable } from 'react-swipeable';
 
 function Mateprop1() {
     const [index1, setIndex1] = useState(0);
+    const [slides, setSlides] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();
+
+    // Fetch data from the backend
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/travel-user/recommend/test');
+                setSlides(response.data);  // API 응답으로 받은 데이터를 slides 상태에 설정합니다.
+                console.log(response.data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleSwipedLeft1 = () => {
         setIndex1((prevIndex) => (prevIndex + 1) % slides.length);
@@ -23,20 +40,13 @@ function Mateprop1() {
         trackMouse: true,
     });
 
-    const slides = [
-        { name: "민지님", location: "도쿄", percentage: 85 },
-        { name: "철수님", location: "오사카", percentage: 75 },
-        { name: "영희님", location: "교토", percentage: 90 },
-        { name: "길동님", location: "나고야", percentage: 80 },
-    ];
-
     const handlePrevious = () => {
-        navigate(-1); // 이전 페이지로 이동
+        navigate(-1);
     };
 
     const handlePropose = () => {
         const selectedSlide = slides[index1];
-        navigate('/propose', { state: { selectedMate: selectedSlide } });
+        navigate('/Managematepage', { state: { selectedMate: selectedSlide } });
     };
 
     return (
