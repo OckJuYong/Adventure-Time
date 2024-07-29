@@ -87,7 +87,7 @@ function ReceivedRequests() {
             };
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
-                friendTravelUserId: requestId,
+                friendTravelUserId: receivedRequests[0].friendTravelUserId
             }, config);
 
             console.log(`Request ${requestId} accepted`, response.data);
@@ -109,7 +109,7 @@ function ReceivedRequests() {
             };
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
-                friendTravelUserId: requestId,
+                friendTravelUserId: receivedRequests[0].friendTravelUserId
             }, config);
 
             console.log(`Request ${requestId} rejected`, response.data);
