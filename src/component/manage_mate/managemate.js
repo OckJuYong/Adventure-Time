@@ -55,7 +55,8 @@ function ReceivedRequests() {
             const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
-                friendTravelUserId: memberId
+                friendTravelUserId: memberId,
+                requestId: requestId // 요청 ID 추가
             }, {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
@@ -77,7 +78,8 @@ function ReceivedRequests() {
             const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
-                friendTravelUserId: memberId
+                friendTravelUserId: memberId,
+                requestId: requestId // 요청 ID 추가
             }, {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
@@ -97,8 +99,8 @@ function ReceivedRequests() {
             <p className={styles.count}>받은 요청 {receivedRequests.length}개</p>
             {receivedRequests.length > 0 ? (
                 <ul>
-                    {receivedRequests.map((request, index) => (
-                        <li key={index} className={styles.requestItem}>
+                    {receivedRequests.map((request) => (
+                        <li key={request.id} className={styles.requestItem}>
                             <p>이름: {request.name}</p>
                             <p>위치: {request.location}</p>
                             <p>궁합: {request.percentage}%</p>
@@ -145,8 +147,8 @@ function SentRequests() {
             <p className={styles.count}>보낸 요청 {sentRequests.length}개</p>
             {sentRequests.length > 0 ? (
                 <ul>
-                    {sentRequests.map((request, index) => (
-                        <li key={index} className={styles.requestItem}>
+                    {sentRequests.map((request) => (
+                        <li key={request.id} className={styles.requestItem}>
                             <p>이름: {request.name}</p>
                             <p>위치: {request.location}</p>
                             <p>궁합: {request.percentage}%</p>
