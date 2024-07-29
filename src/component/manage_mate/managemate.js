@@ -53,10 +53,10 @@ function ReceivedRequests() {
             const jwtToken = localStorage.getItem('jwtToken');
             const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
             const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
+            console.log(requestId);
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
-                friendTravelUserId: memberId,
-                requestId: requestId // 요청 ID 추가
+                friendTravelUserId: requestId,
             }, {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
@@ -68,6 +68,7 @@ function ReceivedRequests() {
             setReceivedRequests(receivedRequests.filter(request => request.id !== requestId));
         } catch (error) {
             console.error('Error accepting request:', error);
+            console.log(requestId);
         }
     };
 
@@ -78,8 +79,7 @@ function ReceivedRequests() {
             const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
 
             const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
-                friendTravelUserId: memberId,
-                requestId: requestId // 요청 ID 추가
+                friendTravelUserId: requestId,
             }, {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
