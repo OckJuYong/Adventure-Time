@@ -18,7 +18,7 @@ function Footer() {
     // 현재 경로에 따라 activeIcon 설정
     if (location.pathname === '/home') {
       setActiveIcon(1);
-    } else if (location.pathname === '/personamain') {
+    } else if (location.pathname === '/frmatepage') {
       setActiveIcon(3);
     } else if (location.pathname === '/insight') {  // 두 번째 아이콘의 경로 추가
       setActiveIcon(2);
@@ -52,7 +52,7 @@ function Footer() {
         src={activeIcon === 3 ? icon3Active : icon3} 
         alt="Icon 3" 
         className={footerStyles.icon} 
-        onClick={() => handleIconClick(3, "/personamain")}
+        onClick={() => handleIconClick(3, "/frmatepage")}
       />
     </div>
   );

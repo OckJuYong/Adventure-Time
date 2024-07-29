@@ -8,7 +8,7 @@ function Creprodfooter(){
 
     }
     const handlereturnclick=()=>{
-        navigate("/proposepage")
+        navigate("/mateporp1")
 
     }
     return(
@@ -18,7 +18,7 @@ function Creprodfooter(){
             <div className={Creprodfooterstyle.datecresold1}></div>
         </div>
         <div className={Creprodfooterstyle.datecrerightbutton}>
-            <div className={Creprodfooterstyle.datecrebuttontext2} onClick={handlereturnclick} >OO님께 제안하기</div>
+            <div className={Creprodfooterstyle.datecrebuttontext2} onClick={handlereturnclick} >매이트 매칭</div>
             
         </div>
 
