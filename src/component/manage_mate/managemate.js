@@ -51,7 +51,7 @@ function ReceivedRequests() {
     const handleAccept = async (requestId) => {
         try {
             const myUserId = localStorage.getItem('memberId');
-            const response = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
+            const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
                 friendTravelUserId: requestId
             }, {
                 headers: {
@@ -70,7 +70,7 @@ function ReceivedRequests() {
     const handleReject = async (requestId) => {
         try {
             const myUserId = localStorage.getItem('memberId');
-            const response = await axios.post('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
+            const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
                 friendTravelUserId: requestId
             }, {
                 headers: {
