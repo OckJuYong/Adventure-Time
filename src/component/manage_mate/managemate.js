@@ -24,10 +24,58 @@ function MyMates({ selectedMate }) {
 
 // 받은 요청 컴포넌트
 function ReceivedRequests() {
+    const [receivedRequests, setReceivedRequests] = useState([]);
+
+    useEffect(() => {
+        const fetchReceivedRequests = async () => {
+            try {
+                const jwtToken = localStorage.getItem('jwtToken');
+                const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+
+                const config = {
+                    headers: {
+                        'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
+                    }
+                };
+
+                const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/standby-list', config);
+                setReceivedRequests(response.data);
+            } catch (error) {
+                console.error('Error fetching received requests:', error);
+            }
+        };
+
+        fetchReceivedRequests();
+    }, []);
+
+    const handleAccept = async (requestId) => {
+        // 수락 로직 추가 예정
+        console.log(`Request ${requestId} accepted`);
+    };
+
+    const handleReject = async (requestId) => {
+        // 거절 로직 추가 예정
+        console.log(`Request ${requestId} rejected`);
+    };
+
     return (
         <div className={styles.content}>
-            <p className={styles.count}>받은 요청 0개</p>
-            <p className={styles.noMateMessage}>받은 요청이 없습니다.</p>
+            <p className={styles.count}>받은 요청 {receivedRequests.length}개</p>
+            {receivedRequests.length > 0 ? (
+                <ul>
+                    {receivedRequests.map((request, index) => (
+                        <li key={index} className={styles.requestItem}>
+                            <p>이름: {request.name}</p>
+                            <p>위치: {request.location}</p>
+                            <p>궁합: {request.percentage}%</p>
+                            <button onClick={() => handleAccept(request.id)}>수락</button>
+                            <button onClick={() => handleReject(request.id)}>거절</button>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className={styles.noMateMessage}>받은 요청이 없습니다.</p>
+            )}
         </div>
     );
 }
