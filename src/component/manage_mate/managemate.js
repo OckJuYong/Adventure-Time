@@ -1,20 +1,46 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from "./managemate.module.css";
 
 // 내 메이트 컴포넌트
-function MyMates({ selectedMate }) {
+function MyMates() {
+    const [myMates, setMyMates] = useState([]);
+    
+    useEffect(() => {
+        const fetchMyMates = async () => {
+            try {
+                const jwtToken = localStorage.getItem('jwtToken');
+                const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+
+                const config = {
+                    headers: {
+                        'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
+                    }
+                };
+
+                const response = await axios.get('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/friend-list', config);
+                setMyMates(response.data);
+            } catch (error) {
+                console.error('Error fetching my mates:', error);
+            }
+        };
+
+        fetchMyMates();
+    }, []);
+
     return (
         <div className={styles.content}>
-            <p className={styles.count}>내 메이트 {selectedMate ? 1 : 0}명</p>
+            <p className={styles.count}>내 메이트 {myMates.length}명</p>
             <button className={styles.editButton}>편집</button>
-            {selectedMate ? (
-                <div className={styles.selectedMateInfo}>
-                    <h2>{selectedMate.name}</h2>
-                    <p>위치: {selectedMate.location}</p>
-                    <p>궁합: {selectedMate.percentage}%</p>
-                </div>
+            {myMates.length > 0 ? (
+                myMates.map((mate) => (
+                    <div key={mate.id} className={styles.selectedMateInfo}>
+                        <h2>{mate.name}</h2>
+                        <p>위치: {mate.location}</p>
+                        <p>궁합: {mate.percentage}%</p>
+                    </div>
+                ))
             ) : (
                 <p className={styles.noMateMessage}>내 메이트가 아직 없습니다.</p>
             )}
@@ -53,24 +79,21 @@ function ReceivedRequests() {
         try {
             const jwtToken = localStorage.getItem('jwtToken');
             const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
-            const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
-            console.log(requestId);
 
-            const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
-                friendTravelUserId: receivedRequests[0].friendTravelUserId
-                ,
-            }, {
+            const config = {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
                 }
-            });
+            };
+
+            const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/acceptance', {
+                friendTravelUserId: requestId,
+            }, config);
 
             console.log(`Request ${requestId} accepted`, response.data);
-            // 수락 후 리스트를 업데이트
             setReceivedRequests(receivedRequests.filter(request => request.id !== requestId));
         } catch (error) {
             console.error('Error accepting request:', error);
-            console.log(requestId);
         }
     };
 
@@ -78,18 +101,18 @@ function ReceivedRequests() {
         try {
             const jwtToken = localStorage.getItem('jwtToken');
             const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
-            const memberId = localStorage.getItem('memberId');  // 현재 사용자의 ID
 
-            const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
-                friendTravelUserId: receivedRequests[0].friendTravelUserId
-            }, {
+            const config = {
                 headers: {
                     'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
                 }
-            });
+            };
+
+            const response = await axios.patch('https://port-0-travelproject-9zxht12blqj9n2fu.sel4.cloudtype.app/friend/refusal', {
+                friendTravelUserId: requestId,
+            }, config);
 
             console.log(`Request ${requestId} rejected`, response.data);
-            // 거절 후 리스트를 업데이트
             setReceivedRequests(receivedRequests.filter(request => request.id !== requestId));
         } catch (error) {
             console.error('Error rejecting request:', error);
@@ -183,13 +206,13 @@ function Managemate() {
     const renderContent = () => {
         switch(activeTab) {
             case 'myMates':
-                return <MyMates selectedMate={selectedMate} />;
+                return <MyMates />;
             case 'receivedRequests':
                 return <ReceivedRequests />;
             case 'sentRequests':
                 return <SentRequests />;
             default:
-                return <MyMates selectedMate={selectedMate} />;
+                return <MyMates />;
         }
     };
 
