@@ -41,6 +41,7 @@ import Managemate from './component/manage_mate/managemate';
 import Firstmatepate from './component/first_mate/firtsmate';
 import Nextmate from './component/next_mate/mextmate';
 import Mateprop1 from './component/mate_prop1/mateprop1';
+import CreateChatRoom from './component/test/chatamke';
 function App() {
   return (
     <BrowserRouter>
