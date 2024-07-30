@@ -55,6 +55,8 @@ const Test = () => {
     try {
       const jwtToken = localStorage.getItem('jwtToken');
       const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+console.log('jwtToken from localStorage:', jwtToken);
+    console.log('jwtRefreshToken from localStorage:', jwtRefreshToken);
 
       const response = await axios.post(`${djangoServerUrl}/users/`, {
         jwtToken: jwtToken,
