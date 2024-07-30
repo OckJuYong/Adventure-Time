@@ -13,6 +13,10 @@ function Potouploadpage() {
   const location = useLocation();
   const [travelAnswers, setTravelAnswers] = useState(null);
 
+  const [mbti, setMbti] = useState('');
+  const [visitedPlaces, setVisitedPlaces] = useState('');
+  const [desiredPlaces, setDesiredPlaces] = useState('');
+
   useEffect(() => {
     const answers = location.state?.travelAnswers;
     if (answers) {
@@ -36,13 +40,14 @@ function Potouploadpage() {
   };
 
   const handleNextPage = () => {
-    if (selectedImages.length >= 10) {
-      // 이미지 URL과 travel answers를 함께 전달
-      const imageUrls = selectedImages.map(image => URL.createObjectURL(image));
+    if (selectedImages.length >= 1 && mbti && visitedPlaces && desiredPlaces) {
       navigate('/UploadWait', { 
         state: { 
-          imageUrls: imageUrls,
-          travelAnswers: travelAnswers
+          selectedImages: selectedImages,
+          travelAnswers: travelAnswers,
+          mbti: mbti,
+          visitedPlaces: visitedPlaces,
+          desiredPlaces: desiredPlaces
         } 
       });
     } else {
@@ -52,6 +57,27 @@ function Potouploadpage() {
 
   return (
     <div className={Potopagestyle.container}>
+            <input
+        type="text"
+        value={mbti}
+        onChange={(e) => setMbti(e.target.value)}
+        placeholder="MBTI를 입력하세요"
+        className={Potopagestyle.input}
+      />
+      <input
+        type="text"
+        value={visitedPlaces}
+        onChange={(e) => setVisitedPlaces(e.target.value)}
+        placeholder="방문한 장소를 입력하세요"
+        className={Potopagestyle.input}
+      />
+      <input
+        type="text"
+        value={desiredPlaces}
+        onChange={(e) => setDesiredPlaces(e.target.value)}
+        placeholder="가고 싶은 장소를 입력하세요"
+        className={Potopagestyle.input}
+      />
       <img src={infoImg} className={Potopagestyle.infoImg} onClick={toggleModal} alt="Info"/>
       <h1 className={Potopagestyle.title1}>좋아하는 여행 사진을</h1>
       <h1 className={Potopagestyle.title2}>선택해 주세요!</h1>
@@ -87,7 +113,7 @@ function Potouploadpage() {
         className={Potopagestyle.fileInput}
       />
       <button onClick={handleNextPage} className={Potopagestyle.selectButton}>
-        {selectedImages.length >= 10 ? "페르소나 생성하기" : `${selectedImages.length}개 선택 완료`}
+        {selectedImages.length >= 1 ? "페르소나 생성하기" : `${selectedImages.length}개 선택 완료`}
       </button>
 
       {showWarning && (

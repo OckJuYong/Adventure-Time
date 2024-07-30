@@ -6,32 +6,91 @@ function UploadWait() {
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
-  const { imageUrls, travelAnswers } = location.state || {};
+  const { selectedImages, travelAnswers, mbti, visitedPlaces, desiredPlaces } = location.state || {};
+
+  // FormData의 내용을 로깅하는 함수
+  const logFormData = (formData) => {
+    console.log("Sending the following data:");
+    for (let [key, value] of formData.entries()) {
+      if (key.startsWith('picture')) {
+        console.log(key, ": File -", value.name);
+      } else {
+        console.log(key, ":", value);
+      }
+    }
+  };
 
   useEffect(() => {
-    console.log("Received Image URLs:", imageUrls);
+    console.log("Received Images:", selectedImages);
     console.log("Received Travel Answers:", travelAnswers);
+    console.log("MBTI:", mbti);
+    console.log("Visited Places:", visitedPlaces);
+    console.log("Desired Places:", desiredPlaces);
 
-    // 여기서 이미지 업로드 및 분석 로직을 구현합니다.
-    // 예시로 진행률을 증가시키는 코드를 작성했습니다.
-    const timer = setInterval(() => {
-      setProgress(prevProgress => {
-        if (prevProgress >= 100) {
-          clearInterval(timer);
-          // 분석이 완료되면 다음 페이지로 이동
-          navigate('/potocompage', { state: { analysisResult: "예시 결과" } });
-          return 100;
+    const uploadImagesAndAnalyze = async () => {
+      try {
+        const formData = new FormData();
+        
+        // 이미지 파일 추가 (최대 10개까지)
+        selectedImages.slice(0, 10).forEach((image, index) => {
+          formData.append(`picture${index + 1}`, image);
+        });
+        
+        // 여행 답변 추가 (최대 10개까지)
+        travelAnswers.slice(0, 10).forEach((answer, index) => {
+          formData.append(`question${index + 1}`, answer);
+        });
+
+        // 기타 정보 추가
+        formData.append('mbti', mbti);
+        formData.append('visited_places', visitedPlaces);
+        formData.append('desired_places', desiredPlaces);
+
+        // FormData 내용 로깅
+        logFormData(formData);
+
+        const jwtToken = localStorage.getItem('jwtToken');
+        const jwtRefreshToken = localStorage.getItem('jwtRefreshToken');
+
+        const config = {
+          headers: {
+              'Cookie': `jwtToken=${jwtToken}; jwtRefreshToken=${jwtRefreshToken}`
+          }
+      };
+
+        const response = await axios.post('http://43.202.121.14:8000/persona/create_user_info/', config, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            setProgress(percentCompleted);
+          }
+        });
+
+        console.log("Server Response:", response.data);
+
+        navigate('/potocompage', { state: { analysisResult: response.data } });
+      } catch (error) {
+        console.error("Error during image upload and analysis:", error);
+        if (error.response) {
+          console.error("Response data:", error.response.data);
+          console.error("Response status:", error.response.status);
+          console.error("Response headers:", error.response.headers);
         }
-        return prevProgress + 10;
-      });
-    }, 1000);
+        // 에러 처리 로직
+      }
+    };
 
-    return () => clearInterval(timer);
-  }, [imageUrls, travelAnswers, navigate]);
+    if (selectedImages && selectedImages.length > 0 && travelAnswers && travelAnswers.length > 0 && mbti && visitedPlaces && desiredPlaces) {
+      uploadImagesAndAnalyze();
+    }
+  }, [selectedImages, travelAnswers, mbti, visitedPlaces, desiredPlaces, navigate]);
 
   return (
     <div>
-      <h1>이미지를 분석 중입니다...</h1>
+      <h1>페르소나를 생성 중입니다...</h1>
+      <progress value={progress} max="100"></progress>
       <span>{progress}%</span>
     </div>
   );
