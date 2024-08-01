@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
 const baseFriendWebSocketUrl = 'wss://port-0-travelproject-umnqdut2blqqevwyb.sel4.cloudtype.app/ws/friend/';
@@ -9,7 +9,8 @@ const FriendManagement = () => {
   const [status, setStatus] = useState('');
   const [travelUserId, setTravelUserId] = useState('');
   const [friendTravelId, setFriendTravelId] = useState('');
-  const socketRef = useRef(null);
+  const chatSocketRef = useRef(null);
+  const friendSocketRef = useRef(null);
   const [socketType, setSocketType] = useState(null);
 
   const handleServerMessage = (data) => {
@@ -17,18 +18,50 @@ const FriendManagement = () => {
     setStatus(`서버 응답: ${JSON.stringify(data)}`);
   };
 
-  const closeExistingSocket = () => {
-    if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      socketRef.current.close();
-      console.log(`${socketType} 소켓 연결 종료`);
+  const connectChatSocket = (userId) => {
+    const url = `${baseChatWebSocketUrl}${userId}/`;
+    const socket = new WebSocket(url);
+    chatSocketRef.current = socket;
+    setSocketType('chat');
+
+    socket.onopen = () => {
+      console.log('Chat 소켓 연결 완료');
+      setStatus('Chat 소켓 연결됨');
+    };
+
+    socket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      console.log('Chat 웹소켓 메시지 수신:', data);
+      handleServerMessage(data);
+    };
+
+    socket.onerror = (error) => {
+      console.error('Chat 웹소켓 오류:', error);
+      setStatus('Chat 웹소켓 연결 실패. 다시 시도해주세요.');
+    };
+
+    socket.onclose = () => {
+      console.log('Chat 소켓 연결 종료');
+      setSocketType(null);
+    };
+  };
+
+  const closeChatSocket = () => {
+    if (chatSocketRef.current && chatSocketRef.current.readyState === WebSocket.OPEN) {
+      chatSocketRef.current.close();
+      console.log('Chat 소켓 연결 종료');
     }
   };
 
   const sendWebSocketMessage = (url, message, type) => {
-    closeExistingSocket();
+    if (type === 'friend') {
+      closeChatSocket();
+    }
 
     const socket = new WebSocket(url);
-    socketRef.current = socket;
+    if (type === 'friend') {
+      friendSocketRef.current = socket;
+    }
     setSocketType(type);
 
     socket.onopen = () => {
@@ -86,7 +119,8 @@ const FriendManagement = () => {
         });
         console.log('로그인 성공:', response.data);
         setStatus('로그인 성공!');
-        setTravelUserId(userId); // 로그인 후 travelUserId를 설정
+        setTravelUserId(userId);
+        connectChatSocket(userId);
       } catch (error) {
         console.error('로그인 오류:', error.response?.data || error.message);
         setStatus('로그인 중 오류가 발생했습니다.');
@@ -95,6 +129,15 @@ const FriendManagement = () => {
       setStatus('사용자 ID 또는 친구 ID를 입력해주세요.');
     }
   };
+
+  useEffect(() => {
+    return () => {
+      closeChatSocket();
+      if (friendSocketRef.current) {
+        friendSocketRef.current.close();
+      }
+    };
+  }, []);
 
   return (
     <div>
