@@ -41,6 +41,7 @@ import Managemate from './component/manage_mate/managemate';
 import Firstmatepate from './component/first_mate/firtsmate';
 import Nextmate from './component/next_mate/mextmate';
 import Mateprop1 from './component/mate_prop1/mateprop1';
+
 function App() {
   return (
     <BrowserRouter>
@@ -85,10 +86,11 @@ function App() {
             <Route path="/CreateDiary" element={<CreateDiary/>} />
             
             <Route path="/Test" element={<Test/>} />
-             <Route path="/Managematepage" element={<Managemate/>} />
-         <Route path="/frmatepage" element={<Firstmatepate/>} />
-        <Route path="/nextpage" element={<Nextmate></Nextmate>} />
-        <Route path="/mateporp1" element={< Mateprop1></ Mateprop1>} />
+            <Route path="/Managematepage" element={<Managemate/>} />
+            <Route path="/frmatepage" element={<Firstmatepate/>} />
+            <Route path="/nextpage" element={<Nextmate></Nextmate>} />
+            <Route path="/mateporp1" element={< Mateprop1></ Mateprop1>} />
+
 
           </Routes>
         </div>

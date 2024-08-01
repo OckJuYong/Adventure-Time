@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import axios from 'axios';
 import Potopagestyle from "./potoupload.module.css";
 import infoImg from './info.png';
 import closeBtn from './closeBtn.png';
@@ -11,17 +12,20 @@ function Potouploadpage() {
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const [travelAnswers, setTravelAnswers] = useState(null);
 
   const [mbti, setMbti] = useState('');
   const [visitedPlaces, setVisitedPlaces] = useState('');
   const [desiredPlaces, setDesiredPlaces] = useState('');
+  const [travelAnswers, setTravelAnswers] = useState(null);
 
   useEffect(() => {
-    const answers = location.state?.travelAnswers;
-    if (answers) {
-      setTravelAnswers(answers);
-      console.log("Received Travel Answers:", answers);
+    const userInfo = location.state;
+    if (userInfo) {
+      setTravelAnswers(userInfo.travelAnswers || []);
+      setMbti(userInfo.mbti || '');
+      setVisitedPlaces(userInfo.visitedPlaces || '');
+      setDesiredPlaces(userInfo.desiredPlaces || '');
+      console.log("Received User Info:", userInfo);
     }
   }, [location]);
 
@@ -39,17 +43,41 @@ function Potouploadpage() {
     setIsModalOpen(!isModalOpen);
   };
 
-  const handleNextPage = () => {
-    if (selectedImages.length >= 1 && mbti && visitedPlaces && desiredPlaces) {
-      navigate('/UploadWait', { 
-        state: { 
-          selectedImages: selectedImages,
-          travelAnswers: travelAnswers,
-          mbti: mbti,
-          visitedPlaces: visitedPlaces,
-          desiredPlaces: desiredPlaces
-        } 
+  const handleUpload = async () => {
+    if (selectedImages.length >= 1) {
+      const formData = new FormData();
+      selectedImages.slice(0, 15).forEach((image, index) => {
+        formData.append(`picture${index + 1}`, image, `image${index + 1}.jpg`);
       });
+      
+      const memberId = localStorage.getItem('memberId') || '12345'; // fallback to '12345' if not found
+      formData.append('travel_user_id', memberId);
+      
+      if (mbti) formData.append('mbti', mbti);
+      if (visitedPlaces) formData.append('visited_places', visitedPlaces);
+      if (desiredPlaces) formData.append('desired_places', desiredPlaces);
+      
+      if (travelAnswers && Array.isArray(travelAnswers)) {
+        travelAnswers.forEach((answer, index) => {
+          formData.append(`question${index + 1}`, answer);
+        });
+      }
+
+      try {
+        const response = await axios.post('http://43.202.121.14:8000/persona/create_user_info/', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+          withCredentials: false,
+        });
+        console.log("Server Response:", response.data.tendency);
+        localStorage.setItem('taste_travel', JSON.stringify(response.data.tendency));
+
+        navigate('/potocompage', { state: { analysisResult: response.data } });
+      } catch (error) {
+        console.error('Error during image upload:', error);
+        setShowWarning(true);
+      }
     } else {
       setShowWarning(true);
     }
@@ -57,27 +85,6 @@ function Potouploadpage() {
 
   return (
     <div className={Potopagestyle.container}>
-            <input
-        type="text"
-        value={mbti}
-        onChange={(e) => setMbti(e.target.value)}
-        placeholder="MBTI를 입력하세요"
-        className={Potopagestyle.input}
-      />
-      <input
-        type="text"
-        value={visitedPlaces}
-        onChange={(e) => setVisitedPlaces(e.target.value)}
-        placeholder="방문한 장소를 입력하세요"
-        className={Potopagestyle.input}
-      />
-      <input
-        type="text"
-        value={desiredPlaces}
-        onChange={(e) => setDesiredPlaces(e.target.value)}
-        placeholder="가고 싶은 장소를 입력하세요"
-        className={Potopagestyle.input}
-      />
       <img src={infoImg} className={Potopagestyle.infoImg} onClick={toggleModal} alt="Info"/>
       <h1 className={Potopagestyle.title1}>좋아하는 여행 사진을</h1>
       <h1 className={Potopagestyle.title2}>선택해 주세요!</h1>
@@ -112,13 +119,13 @@ function Potouploadpage() {
         ref={fileInputRef}
         className={Potopagestyle.fileInput}
       />
-      <button onClick={handleNextPage} className={Potopagestyle.selectButton}>
+      <button onClick={handleUpload} className={Potopagestyle.selectButton}>
         {selectedImages.length >= 1 ? "페르소나 생성하기" : `${selectedImages.length}개 선택 완료`}
       </button>
 
       {showWarning && (
         <p className={Potopagestyle.warningMessage}>
-          아직 사진을 10장 업로드하지 못했습니다.
+          아직 사진을 선택하지 않았거나 업로드 중 오류가 발생했습니다.
         </p>
       )}
 

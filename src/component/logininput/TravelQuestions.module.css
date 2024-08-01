@@ -177,3 +177,11 @@
     background-color: white;
     border: 2px solid #A0B4E0;
   }
+
+  .input {
+    width: 60vw;
+    font-size: 4vw;
+    margin-bottom: 22vh;
+    border-radius: 30px;
+    padding: 20px;
+  }

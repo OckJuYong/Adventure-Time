@@ -7,6 +7,9 @@
   display: flex;
   flex-direction: column;
   background-color: #FBF0D4;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .header {
@@ -38,7 +41,7 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 20px;
-  font-size: 16px;
+  font-size: 4.5vw;
   word-wrap: break-word;
 }
 
@@ -56,9 +59,10 @@
 
 .inputArea {
   display: flex;
-  padding: 10px;
-  background-color: #fff;
-  border-top: 1px solid #e0e0e0;
+  padding: 0px;
+  height: 5vh;
+  margin-bottom: 2vh;
+  margin-left: 3vw;
 }
 
 .inputField {
@@ -66,14 +70,14 @@
   padding: 10px;
   border: 1px solid #e0e0e0;
   border-radius: 20px;
-  font-size: 16px;
+  font-size: 3vw;
   margin-right: 10px;
 }
 
 .sendButton {
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 3.5vw;
   color: #6285E1;
   cursor: pointer;
   font-weight: bold;
