@@ -180,7 +180,11 @@ function InsightWrite() {
   const backgroundImage = getBackgroundImage();
 
   return (
-    <div className={styles.chatFullScreen}>
+    <div className={styles.chatFullScreen}
+      style={{
+        backgroundColor: background
+      }}
+    >
       {backgroundImage && (
         <img src={backgroundImage} alt="Background" className={styles.backgroundImage} />
       )}

@@ -83,7 +83,6 @@ function Firstmatepage() {
                             ) : <p className={styles.noMateText}>메이트가 아직 없습니다.</p>}
                         </div>
                         
-
                         <div className={styles.mateManageIconContainer} onClick={manageMate}>  {/* onClick 추가 */}
                             <div className={styles.mateManageCircle}>
                                <img className={styles.img} src={mate} alt="Mate icon" />

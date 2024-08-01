@@ -25,15 +25,17 @@
 
 .chatWrapper {
   flex-grow: 1;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 20px;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .chatContent {
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+  max-height: 100%;
 }
 
 .message {

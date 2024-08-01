@@ -13,7 +13,7 @@
 }
 
 .title1 {
-    font-weight: bold;
+    width: 100vw;
     margin-bottom: -4%;
     font-size: 7vw;
     line-height: 1.2;
@@ -144,7 +144,7 @@
         height: 100%;
     }
     .imageGrid{
-        margin-left: 20vw;
+        margin-left: 25vw;
         width: 40vw;
     }
     .selectButton{
@@ -152,12 +152,18 @@
         justify-content: center;
         align-items: center;
         width: 20vw;
-        height: 4vh !important;
+        height: 8.7vh !important;
         font-size: 2vw;
-        margin-left: 29vw;
+        margin-left: 35vw;
     }
     .warningMessage {
         font-size: 1.5vw;
+    }
+    .infoImg{
+        height: 2.5vw;
+        width: 3.5vw !important;    
+        margin-right: 25vw;
+        margin-top: 15vh !important;
     }
 }
 
@@ -232,5 +238,8 @@
     .modalContent p {
         font-size: 1.2vw;
         margin-bottom: 1.5vh;
+    }
+    .selectButton{
+        height: 10vh;
     }
 }

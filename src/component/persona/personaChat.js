@@ -52,6 +52,7 @@ function PersonaChat() {
   const [isLoading, setIsLoading] = useState(true);
   const [isWaitingForAIResponse, setIsWaitingForAIResponse] = useState(false);
   const [userMBTI, setUserMBTI] = useState(null);
+  const chatContentRef = useRef(null);
 
   const MAX_MESSAGES = 10; // 최대 표시할 메시지 수
 
@@ -79,6 +80,10 @@ function PersonaChat() {
   useEffect(() => {
     if (!isLoading) {
       localStorage.setItem('chatMessages', JSON.stringify(messages));
+    }
+    // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
+    if (chatContentRef.current) {
+      chatContentRef.current.scrollTop = chatContentRef.current.scrollHeight;
     }
   }, [messages, isLoading]);
 
@@ -160,7 +165,16 @@ function PersonaChat() {
           zIndex: 1 
         }}
       >
-        <div className={personasChatsty.chatContent} style={{ overflow: 'hidden' }}>
+        <div 
+          ref={chatContentRef}
+          className={personasChatsty.chatContent} 
+          style={{ 
+            overflowY: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            maxHeight: '100%'
+          }}
+        >
           {messages.map((message, index) => (
             <div key={index} className={`${personasChatsty.message} ${personasChatsty[message.sender]}`}
                  style={{
