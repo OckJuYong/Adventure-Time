@@ -9,9 +9,10 @@
 }
 
 .title {
+    width: 50vw;
     font-size: 7vw;
     font-weight: bold;
-    margin-top: 20vh;
+    margin-top: 14vh;
     text-align: left;
 }
 
@@ -34,8 +35,8 @@
 }
 
 .circle {
-    width: 20vw;
-    height: 20vw;
+    width: 24vw !important;
+    height: 24vw !important;
     max-width: 40px;
     max-height: 40px;
     background-color: #E0E0E0;

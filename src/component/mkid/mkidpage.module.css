@@ -7,9 +7,11 @@
 }
 
 .mkidmaintext {
+  width: 30vw;
   font-size: 7vw;
-  font-weight: 700;
+  font-weight: bold;
   margin-bottom: 5vw;
+
 }
 
 .inputlabel {
@@ -139,6 +141,7 @@
 }
 
 .passwordToggle svg {
+  margin-right: 2vw;
   width: 6vw;
   height: 6vw;
 }
@@ -149,6 +152,7 @@
   }
   
   .passwordToggle svg {
+    margin-left: -4vw;
     width: 24px;
     height: 24px;
   }

@@ -10,9 +10,9 @@
 
 .perheadertext {
     position: absolute;
-    font-weight:900;
+    
     width: 40%;
-    font-size: 40px;
+    font-size: 7vw;
     font-family: 900;
     margin-left: -52vw;
 }

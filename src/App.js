@@ -42,6 +42,8 @@ import Firstmatepate from './component/first_mate/firtsmate';
 import Nextmate from './component/next_mate/mextmate';
 import Mateprop1 from './component/mate_prop1/mateprop1';
 import CreateChatRoom from './component/test/chatamke';
+import FriendManagement from './component/test/friendtest';
+import ChatRoomTest from './component/test/checklist';
 function App() {
   return (
     <BrowserRouter>
@@ -90,8 +92,11 @@ function App() {
          <Route path="/frmatepage" element={<Firstmatepate/>} />
         <Route path="/nextpage" element={<Nextmate></Nextmate>} />
         <Route path="/mateporp1" element={< Mateprop1></ Mateprop1>} />
+        <Route path="/chatmake" element={<CreateChatRoom />} />
+        <Route path="/friendtestpage" element={ <FriendManagement/>} />
+        <Route path="/cheklist" element={<ChatRoomTest/>} />
 
-          </Routes>
+          </Routes> 
         </div>
       </div>
     </BrowserRouter>
